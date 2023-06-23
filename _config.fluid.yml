@@ -4,6 +4,16 @@ navbar:
     - { key: 'home', link: '/', icon: 'iconfont icon-home-fill' }
     - { key: 'tag', link: '/tags/', icon: 'iconfont icon-tags-fill' }
     - { key: 'about', link: '/about/', icon: 'iconfont icon-user-fill', name: '联系我' }
+index:
+  slogan:
+    enable: true
+    api:
+      enable: true
+      url: "https://v1.hitokoto.cn?c=i"
+      method: "GET"
+      headers: {}
+      keys: ["hitokoto"]
+  banner_img: /img/wallhaven-l8yl6q_1920x1080.png
 post:
   katex: false
 about:
