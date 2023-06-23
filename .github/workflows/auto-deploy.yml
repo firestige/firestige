@@ -9,16 +9,32 @@ jobs:
   if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        submodules: true
-
-    - name: Build-and-Deploy
-      uses: solybum/hexo-deploy@master
-      env:
-        PERSONAL_TOKEN: ${{ secrets.AUTO_DEPLOY }}
-        PUBLISH_REPOSITORY: firestige/firestige
-        BRANCH: blog
-        PUBLISH_DIR: ./public
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.AUTO_DEPLOY }}
+          # If your repository depends on submodule, please see: https://github.com/actions/checkout
+          submodules: recursive
+      - name: Use Node.js lts
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/Hydrogen'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.AUTO_DEPLOY }}
+          publish_dir: ./public
+          publish_branch: blog 
