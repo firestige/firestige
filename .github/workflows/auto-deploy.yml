@@ -1,0 +1,24 @@
+name: build and deploy
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Build-and-Deploy
+      uses: solybum/hexo-deploy@master
+      env:
+        PERSONAL_TOKEN: ${{ secrets.AUTO_DEPLOY }}
+        PUBLISH_REPOSITORY: firestige/firestige
+        BRANCH: blog
+        PUBLISH_DIR: ./public
