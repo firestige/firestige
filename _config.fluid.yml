@@ -18,10 +18,19 @@ index:
 post:
   katex: false
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
+tag:
+  banner_img: /img/wallhaven-l8yl6q_1920x1080.png
+  tagcloud:
+    min_font: 15
+    max_font: 30
+    unit: px  # 字号单位
+    start_color: "#BBBBEE"
+    end_color: "#337ab7"
 about:
   avatar: /img/avatar.jpg
   name: 大王的小猪猪
   intro: 一个热爱生活，持续学习的胖子
+  banner_img: /img/wallhaven-l8yl6q_1920x1080.png
   icons:
     - { class: 'iconfont icon-linkedin-fill', link: 'https://www.linkedin.com/in/%E5%AE%97%E6%B3%B0-%E5%BC%A0-062754280/', tip: 'linkedin' }
     - { class: 'iconfont icon-github-fill', link: 'https://github.com/firestige', tip: 'GitHub' }
