@@ -339,6 +339,10 @@ io.firestige.iris.DeviceID@7880cdf3d footprint:
 
 通过dump的分析结果，我们可以很明显的看到总的内存占用降低，重复字符串的消失。
 
+![重复字符串分析]()
+
+![老年代总量对比]()
+
 ## Reference
 
 [^1]: [The Java™ Tutorials](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html#:~:text=char%3A%20The%20char%20data%20type,'%20(or%2065%2C535%20inclusive)).
