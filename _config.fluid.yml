@@ -17,6 +17,7 @@ index:
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
 post:
   katex: false
+  banner_img: /img/wallhaven-l8yl6q_1920x1080.png
 about:
   avatar: /img/avatar.jpg
   name: 大王的小猪猪
@@ -27,3 +28,8 @@ about:
     - { class: 'iconfont icon-zhihu-fill', link: 'https://zhihu.com/people/firestige', tip: '知乎' }
     - { class: 'iconfont icon-mail', link: 'mailto:zzt.nbl@hotmail.com', tip: '邮箱' }
     - { class: 'iconfont icon-wechat-fill', qrcode: '/img/WeChat.jpg' }
+math:
+  katex:
+    css: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css'
+    options:
+      throwOnError: false
