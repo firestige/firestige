@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/47.99.189.243/img/fluid.png">
-  <link rel="icon" href="/47.99.189.243/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -19,22 +19,22 @@
     <meta name="description" content="请注意：案例中关键信息已经被匿名化处理  背景上一轮质量改进分析内存堆栈发现，运行时堆内存会驻留大量重复字符串。一段长度20个ASCII字符的设备编码，在系统中最多可能出现m个内容相同的字符串实例（m是系统最大管理设备数量，量级：百万）。这造成堆内存空间极大浪费，大量的冗余数据将本该用于支撑业务运行的空间占用，导致系统的设备管理规格上不去，成本下不来，对友商的竞争力降低。 问题分析为什么有重复由">
 <meta property="og:type" content="article">
 <meta property="og:title" content="移除重复字符串和字符串压缩">
-<meta property="og:url" content="http://http//47.99.189.243/2023/06/19/remove-redundant-and-compact-string/index.html">
+<meta property="og:url" content="http://47.99.189.243/2023/06/19/remove-redundant-and-compact-string/index.html">
 <meta property="og:site_name" content="大王的养猪场">
 <meta property="og:description" content="请注意：案例中关键信息已经被匿名化处理  背景上一轮质量改进分析内存堆栈发现，运行时堆内存会驻留大量重复字符串。一段长度20个ASCII字符的设备编码，在系统中最多可能出现m个内容相同的字符串实例（m是系统最大管理设备数量，量级：百万）。这造成堆内存空间极大浪费，大量的冗余数据将本该用于支撑业务运行的空间占用，导致系统的设备管理规格上不去，成本下不来，对友商的竞争力降低。 问题分析为什么有重复由">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://http/47.99.189.243/">
-<meta property="og:image" content="http://http/47.99.189.243/">
-<meta property="og:image" content="http://http/47.99.189.243/">
-<meta property="og:image" content="http://http/47.99.189.243/">
+<meta property="og:image" content="http://47.99.189.243/">
+<meta property="og:image" content="http://47.99.189.243/">
+<meta property="og:image" content="http://47.99.189.243/">
+<meta property="og:image" content="http://47.99.189.243/">
 <meta property="article:published_time" content="2023-06-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-23T18:49:57.882Z">
+<meta property="article:modified_time" content="2023-06-23T19:04:13.087Z">
 <meta property="article:author" content="firestige">
 <meta property="article:tag" content="字符串优化">
 <meta property="article:tag" content="内存优化">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://http/47.99.189.243/">
+<meta name="twitter:image" content="http://47.99.189.243/">
   
   
   
@@ -62,12 +62,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/47.99.189.243/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/47.99.189.243/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/47.99.189.243/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -76,15 +76,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"http","root":"//47.99.189.243/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"//47.99.189.243/local-search.xml"};
+    var CONFIG = {"hostname":"47.99.189.243","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/47.99.189.243/js/utils.js" ></script>
-  <script  src="/47.99.189.243/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
 
@@ -105,7 +105,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/47.99.189.243/">
+    <a class="navbar-brand" href="/">
       <strong>大王的养猪场</strong>
     </a>
 
@@ -124,7 +124,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/47.99.189.243/">
+              <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -136,7 +136,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/47.99.189.243/tags/">
+              <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -148,7 +148,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/47.99.189.243/about/">
+              <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
                 <span>联系我</span>
               </a>
@@ -178,7 +178,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/47.99.189.243/img/wallhaven-l8yl6q_1920x1080.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/wallhaven-l8yl6q_1920x1080.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -264,8 +264,8 @@
                 <blockquote>
 <p><em>请注意：案例中关键信息已经被匿名化处理</em></p>
 </blockquote>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>上一轮质量改进分析内存堆栈发现，运行时堆内存会驻留大量重复字符串。一段长度20个ASCII字符的设备编码，在系统中最多可能出现m个内容相同的字符串实例（m是系统最大管理设备数量，量级：百万）。这造成堆内存空间极大浪费，大量的冗余数据将本该用于支撑业务运行的空间占用，导致系统的设备管理规格上不去，成本下不来，对友商的竞争力降低。<br><img src="/47.99.189.243/" srcset="//47.99.189.243/img/loading.gif" lazyload alt="原理展示，非实际数据"></p>
-<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="为什么有重复"><a href="#为什么有重复" class="headerlink" title="为什么有重复"></a>为什么有重复</h3><p>由于模块负责GB28181协议中目录树功能，有大量层次化数据，即目录和目录下的设备。这些数据会驻留在内存中共查询和修改，数据之间的关系通过<code>ParentID</code>以及<code>externalDomainID</code>来表示。下面是个3层目录的示意图：<br><img src="/47.99.189.243/" srcset="//47.99.189.243/img/loading.gif" lazyload alt="示意图"><br>可以很明显看出，每个节点都会持有一个指向父节点和指向根节点的指针。这个指针实际使用以对应元素的id来表示并用String来保存。由于每次反序列化时都是创建一个新的String对象，所以堆内存中有多少个设备对象，就会有多少个重复的指向根节点的id，以及指向不同父节点的id。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>上一轮质量改进分析内存堆栈发现，运行时堆内存会驻留大量重复字符串。一段长度20个ASCII字符的设备编码，在系统中最多可能出现m个内容相同的字符串实例（m是系统最大管理设备数量，量级：百万）。这造成堆内存空间极大浪费，大量的冗余数据将本该用于支撑业务运行的空间占用，导致系统的设备管理规格上不去，成本下不来，对友商的竞争力降低。<br><img src="/" srcset="/img/loading.gif" lazyload alt="原理展示，非实际数据"></p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><h3 id="为什么有重复"><a href="#为什么有重复" class="headerlink" title="为什么有重复"></a>为什么有重复</h3><p>由于模块负责GB28181协议中目录树功能，有大量层次化数据，即目录和目录下的设备。这些数据会驻留在内存中共查询和修改，数据之间的关系通过<code>ParentID</code>以及<code>externalDomainID</code>来表示。下面是个3层目录的示意图：<br><img src="/" srcset="/img/loading.gif" lazyload alt="示意图"><br>可以很明显看出，每个节点都会持有一个指向父节点和指向根节点的指针。这个指针实际使用以对应元素的id来表示并用String来保存。由于每次反序列化时都是创建一个新的String对象，所以堆内存中有多少个设备对象，就会有多少个重复的指向根节点的id，以及指向不同父节点的id。</p>
 <h3 id="还有没有其他问题"><a href="#还有没有其他问题" class="headerlink" title="还有没有其他问题"></a>还有没有其他问题</h3><p>编码用String保存，还有没有优化空间呢？查看JDK8的源码，String对象内部使用char[]保存数据，而单个char使用16bit Unicode保存。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[The Java™ Tutorials](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html#:~:text=char%3A%20The%20char%20data%20type,'%20(or%2065%2C535%20inclusive)).">[1]</span></a></sup></p>
 <blockquote>
 <p>char: The char data type is a single 16-bit Unicode character. It has a minimum value of <code>\u0000</code> (or 0) and a maximum value of <code>\uffff</code> (or 65,535 inclusive).</p>
@@ -343,8 +343,8 @@
 
 <p>即随着字符串越来越长，对象头占用空间对实例占用内存的贡献降低，新类的压缩率会逐渐上升，最终可以节省接近50%内存空间。</p>
 <h3 id="dump对比"><a href="#dump对比" class="headerlink" title="dump对比"></a>dump对比</h3><p>通过dump的分析结果，我们可以很明显的看到总的内存占用降低，重复字符串的消失。</p>
-<p><img src="/47.99.189.243/" srcset="//47.99.189.243/img/loading.gif" lazyload alt="重复字符串分析"></p>
-<p><img src="/47.99.189.243/" srcset="//47.99.189.243/img/loading.gif" lazyload alt="老年代总量对比"></p>
+<p><img src="/" srcset="/img/loading.gif" lazyload alt="重复字符串分析"></p>
+<p><img src="/" srcset="/img/loading.gif" lazyload alt="老年代总量对比"></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html#:~:text=char%3A%20The%20char%20data%20type,'%20(or%2065%2C535%20inclusive)">The Java™ Tutorials</a>.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=8BBC2475624A6C31DC34A28052B3923D">GB&#x2F;T 28181-2022, 公共安全视频监控联网系统信息传输、交换、控制技术要求</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://openjdk.org/jeps/254">JEP 254: Compact Strings</a>
@@ -361,11 +361,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/47.99.189.243/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%98%E5%8C%96/">#字符串优化</a>
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%98%E5%8C%96/">#字符串优化</a>
       
-        <a href="/47.99.189.243/tags/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">#内存优化</a>
+        <a href="/tags/%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96/">#内存优化</a>
       
-        <a href="/47.99.189.243/tags/Java/">#Java</a>
+        <a href="/tags/Java/">#Java</a>
       
     </div>
   
@@ -378,7 +378,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>移除重复字符串和字符串压缩</div>
-      <div>http://http//47.99.189.243/2023/06/19/remove-redundant-and-compact-string/</div>
+      <div>http://47.99.189.243/2023/06/19/remove-redundant-and-compact-string/</div>
     </div>
     <div class="license-meta">
       
@@ -426,7 +426,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/47.99.189.243/2023/06/18/hello-world/" title="你好，世界">
+                      <a href="/2023/06/18/hello-world/" title="你好，世界">
                         <span class="hidden-mobile">你好，世界</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -546,8 +546,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/47.99.189.243/js/events.js" ></script>
-<script  src="/47.99.189.243/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -569,7 +569,7 @@
 
 
   
-    <script  src="/47.99.189.243/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -668,7 +668,7 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script  src="/47.99.189.243/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -676,7 +676,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/47.99.189.243/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
