@@ -16,7 +16,7 @@ tags:
 
 ![100万设备700万字符串](/img/remove-redundant-and-compact-string/dump-1.png)
 ![示例设备对象模型](/img/remove-redundant-and-compact-string/model.svg)
-可以看到，String实例数量达到设备实例数量的7倍。
+可以看到，String实例数量达到设备实例数量的2.5倍。
 ![原理模拟，非生产环境数据](/img/remove-redundant-and-compact-string/repeated-string.png)
 通过jprofile分析，明显发现大量编码重复。
 
