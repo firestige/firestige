@@ -11,14 +11,21 @@ tags:
 ## 背景
 
 上一轮质量改进分析内存堆栈发现，运行时堆内存会驻留大量重复字符串。一段长度20个ASCII字符的设备编码，在系统中最多可能出现m个内容相同的字符串实例（m是系统最大管理设备数量，量级：百万）。这造成堆内存空间极大浪费，大量的冗余数据将本该用于支撑业务运行的空间占用，导致系统的设备管理规格上不去，成本下不来，对友商的竞争力降低。
-![原理展示，非实际数据]()
+
+> 以下数据为场景模拟，不包含产品代码，也不是生产环境上获取的dump，仅用于现象说明
+
+![100万设备700万字符串](/img/remove-redundant-and-compact-string/dump-1.png)
+![示例设备对象模型](/img/remove-redundant-and-compact-string/model.svg)
+可以看到，String实例数量达到设备实例数量的7倍。
+![原理模拟，非生产环境数据](/img/remove-redundant-and-compact-string/repeated-string.png)
+通过jprofile分析，明显发现大量编码重复。
 
 ## 问题分析
 
 ### 为什么有重复
 
-由于模块负责GB28181协议中目录树功能，有大量层次化数据，即目录和目录下的设备。这些数据会驻留在内存中共查询和修改，数据之间的关系通过`ParentID`以及`externalDomainID`来表示。下面是个3层目录的示意图：
-![示意图]()
+由于模块负责GB28181协议中目录树功能，有大量层次化数据，即目录和目录下的设备。这些数据会驻留在内存中共查询和修改，数据之间的关系通过`ParentID`以及`externalDomainID`来表示。下面是个多层目录的示意图：
+![行政区划-业务分组设备树示意图](/img/remove-redundant-and-compact-string/catalog-tree.svg)
 可以很明显看出，每个节点都会持有一个指向父节点和指向根节点的指针。这个指针实际使用以对应元素的id来表示并用String来保存。由于每次反序列化时都是创建一个新的String对象，所以堆内存中有多少个设备对象，就会有多少个重复的指向根节点的id，以及指向不同父节点的id。
 
 ### 还有没有其他问题
@@ -339,9 +346,10 @@ io.firestige.iris.DeviceID@7880cdf3d footprint:
 
 通过dump的分析结果，我们可以很明显的看到总的内存占用降低，重复字符串的消失。
 
-![重复字符串分析]()
-
-![老年代总量对比]()
+||改动前|改动后|
+|---|---|---|
+|重复字符串分析|![重复字符串分析](/img/remove-redundant-and-compact-string/repeated-string.png)|![重复字符串分析](/img/remove-redundant-and-compact-string/repeated-string-2.png)|
+|老年代总量对比|![老年代总量对比](/img/remove-redundant-and-compact-string/dump-1.png)|![老年代总量对比](/img/remove-redundant-and-compact-string/dump-2.png)|
 
 ## Reference
 
