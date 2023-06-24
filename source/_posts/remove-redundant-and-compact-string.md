@@ -14,7 +14,7 @@ tags:
 
 > 以下数据为场景模拟，不包含产品代码，也不是生产环境上获取的dump，仅用于现象说明
 
-![100万设备700万字符串](/img/remove-redundant-and-compact-string/dump-1.png)
+![200万设备500万字符串](/img/remove-redundant-and-compact-string/dump-1.png)
 ![示例设备对象模型](/img/remove-redundant-and-compact-string/model.svg)
 可以看到，String实例数量达到设备实例数量的2.5倍。
 ![原理模拟，非生产环境数据](/img/remove-redundant-and-compact-string/repeated-string.png)
