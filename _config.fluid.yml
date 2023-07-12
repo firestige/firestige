@@ -1,6 +1,6 @@
-url: https://47.99.189.243
+url: http://firestige.xyz/
 navbar:
-  blog_title: 大王的养猪场
+  blog_title: 试替哥的看板墙
   menu:
     - { key: 'home', link: '/', icon: 'iconfont icon-home-fill' }
     - { key: 'tag', link: '/tags/', icon: 'iconfont icon-tags-fill' }
