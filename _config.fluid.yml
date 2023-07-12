@@ -34,6 +34,7 @@ about:
   icons:
     - { class: 'iconfont icon-linkedin-fill', link: 'https://www.linkedin.com/in/%E5%AE%97%E6%B3%B0-%E5%BC%A0-062754280/', tip: 'linkedin' }
     - { class: 'iconfont icon-github-fill', link: 'https://github.com/firestige', tip: 'GitHub' }
+    - { class: 'iconfont icon-leetcode', link: 'https://leetcode.cn/u/firestige', tip: 'leetcode' }
     - { class: 'iconfont icon-zhihu-fill', link: 'https://zhihu.com/people/firestige', tip: '知乎' }
     - { class: 'iconfont icon-mail', link: 'mailto:zzt.nbl@hotmail.com', tip: '邮箱' }
     - { class: 'iconfont icon-wechat-fill', qrcode: '/img/WeChat.jpg' }
@@ -42,3 +43,4 @@ math:
     css: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css'
     options:
       throwOnError: false
+custom_css: /css/iconfont-leetcode.css
