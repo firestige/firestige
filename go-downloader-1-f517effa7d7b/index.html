@@ -16,24 +16,25 @@
   <meta name="author" content="firestige">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+    <meta name="description" content="第一天，完成go下载器的搭建  原型设计首先我们要拆分问题，一个支持多任务，多分片，多协议，还能断点续传的下载器无疑是复杂的任务，一时半会儿想不出好的解决方案。所以先将问题拆分简化，刨除所有的定语，一个下载器首先要能发出请求，然后将收到的数据保存至文件，其次才是逐个完成定语对应的功能。 如何使用go完成http协议下载？先写测试程序，目标：把baidu的首页html文件下载下来并保存到当前目录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="评Unix哲学基础">
-<meta property="og:url" content="http://firestige.xyz/unix-philosophy-e7f3e70abb5a/index.html">
+<meta property="og:title" content="从零开始的golang编程（day1）">
+<meta property="og:url" content="http://firestige.xyz/go-downloader-1-f517effa7d7b/index.html">
 <meta property="og:site_name" content="试替哥的看板墙">
-<meta property="og:description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+<meta property="og:description" content="第一天，完成go下载器的搭建  原型设计首先我们要拆分问题，一个支持多任务，多分片，多协议，还能断点续传的下载器无疑是复杂的任务，一时半会儿想不出好的解决方案。所以先将问题拆分简化，刨除所有的定语，一个下载器首先要能发出请求，然后将收到的数据保存至文件，其次才是逐个完成定语对应的功能。 如何使用go完成http协议下载？先写测试程序，目标：把baidu的首页html文件下载下来并保存到当前目录">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-02T19:32:29.930Z">
+<meta property="article:published_time" content="2023-09-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-03T06:08:25.725Z">
 <meta property="article:author" content="firestige">
-<meta property="article:tag" content="读书笔记">
-<meta property="article:tag" content="程序设计">
-<meta property="article:tag" content="Unix编程艺术">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="home-center">
+<meta property="article:tag" content="go-downloader">
+<meta property="article:tag" content="编程日志">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>评Unix哲学基础 - 试替哥的看板墙</title>
+  <title>从零开始的golang编程（day1） - 试替哥的看板墙</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="评Unix哲学基础"></span>
+            <span id="subtitle" data-typed-text="从零开始的golang编程（day1）"></span>
           
         </div>
 
@@ -194,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-24 00:00" pubdate>
-          2023年8月24日 凌晨
+        <time datetime="2023-09-03 00:00" pubdate>
+          2023年9月3日 凌晨
         </time>
       </span>
     
@@ -206,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          470 字
+          1.5k 字
         
       </span>
     
@@ -217,7 +218,7 @@
         
         
         
-          4 分钟
+          13 分钟
         
       </span>
     
@@ -255,15 +256,21 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">评Unix哲学基础</h1>
+            <h1 style="display: none">从零开始的golang编程（day1）</h1>
             
             
               <div class="markdown-body">
                 
                 <blockquote>
-<p>这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。</p>
+<p>第一天，完成go下载器的搭建</p>
 </blockquote>
-<h2 id="1-模块原则：使用简洁的接口拼合简单的部件"><a href="#1-模块原则：使用简洁的接口拼合简单的部件" class="headerlink" title="1. 模块原则：使用简洁的接口拼合简单的部件"></a>1. 模块原则：使用简洁的接口拼合简单的部件</h2><h2 id="2-清晰原则：清晰胜于机巧"><a href="#2-清晰原则：清晰胜于机巧" class="headerlink" title="2. 清晰原则：清晰胜于机巧"></a>2. 清晰原则：清晰胜于机巧</h2><h2 id="3-组合原则：设计时考虑拼接组合"><a href="#3-组合原则：设计时考虑拼接组合" class="headerlink" title="3. 组合原则：设计时考虑拼接组合"></a>3. 组合原则：设计时考虑拼接组合</h2><h2 id="4-分离原则：策略同机制分离，接口同引擎分离"><a href="#4-分离原则：策略同机制分离，接口同引擎分离" class="headerlink" title="4. 分离原则：策略同机制分离，接口同引擎分离"></a>4. 分离原则：策略同机制分离，接口同引擎分离</h2><h2 id="5-简洁原则：设计要简洁，复杂度能低则低"><a href="#5-简洁原则：设计要简洁，复杂度能低则低" class="headerlink" title="5. 简洁原则：设计要简洁，复杂度能低则低"></a>5. 简洁原则：设计要简洁，复杂度能低则低</h2><h2 id="6-吝啬原则：除非却无他法，不要编写庞大的程序"><a href="#6-吝啬原则：除非却无他法，不要编写庞大的程序" class="headerlink" title="6. 吝啬原则：除非却无他法，不要编写庞大的程序"></a>6. 吝啬原则：除非却无他法，不要编写庞大的程序</h2><h2 id="7-透明性原则：设计要可见，以便审查和调试"><a href="#7-透明性原则：设计要可见，以便审查和调试" class="headerlink" title="7. 透明性原则：设计要可见，以便审查和调试"></a>7. 透明性原则：设计要可见，以便审查和调试</h2><h2 id="8-健壮原则：健壮源于透明与简洁"><a href="#8-健壮原则：健壮源于透明与简洁" class="headerlink" title="8. 健壮原则：健壮源于透明与简洁"></a>8. 健壮原则：健壮源于透明与简洁</h2><h2 id="9-表示原则：把知识叠入数据以求逻辑质朴而健壮"><a href="#9-表示原则：把知识叠入数据以求逻辑质朴而健壮" class="headerlink" title="9. 表示原则：把知识叠入数据以求逻辑质朴而健壮"></a>9. 表示原则：把知识叠入数据以求逻辑质朴而健壮</h2><h2 id="10-通俗原则：设计接口避免标新立异"><a href="#10-通俗原则：设计接口避免标新立异" class="headerlink" title="10. 通俗原则：设计接口避免标新立异"></a>10. 通俗原则：设计接口避免标新立异</h2><h2 id="11-缄默原则：如果一个程序没什么好说的，保持沉默"><a href="#11-缄默原则：如果一个程序没什么好说的，保持沉默" class="headerlink" title="11. 缄默原则：如果一个程序没什么好说的，保持沉默"></a>11. 缄默原则：如果一个程序没什么好说的，保持沉默</h2><h2 id="12-补救原则：出现异常时，马上退出并给出足够错误信息"><a href="#12-补救原则：出现异常时，马上退出并给出足够错误信息" class="headerlink" title="12. 补救原则：出现异常时，马上退出并给出足够错误信息"></a>12. 补救原则：出现异常时，马上退出并给出足够错误信息</h2><h2 id="13-经济原则：宁花机器一分，不花程序员一秒"><a href="#13-经济原则：宁花机器一分，不花程序员一秒" class="headerlink" title="13. 经济原则：宁花机器一分，不花程序员一秒"></a>13. 经济原则：宁花机器一分，不花程序员一秒</h2><h2 id="14-生成原则：避免手工hack，尽量编写程序去生成程序"><a href="#14-生成原则：避免手工hack，尽量编写程序去生成程序" class="headerlink" title="14. 生成原则：避免手工hack，尽量编写程序去生成程序"></a>14. 生成原则：避免手工hack，尽量编写程序去生成程序</h2><h2 id="15-优化原则：雕琢前先要有原型，跑之前先学会走"><a href="#15-优化原则：雕琢前先要有原型，跑之前先学会走" class="headerlink" title="15. 优化原则：雕琢前先要有原型，跑之前先学会走"></a>15. 优化原则：雕琢前先要有原型，跑之前先学会走</h2><h2 id="16-多样原则：绝不相信所谓“不二法门”的断言"><a href="#16-多样原则：绝不相信所谓“不二法门”的断言" class="headerlink" title="16. 多样原则：绝不相信所谓“不二法门”的断言"></a>16. 多样原则：绝不相信所谓“不二法门”的断言</h2><h2 id="17-扩展原则：设计着眼未来，未来总比预想来得快"><a href="#17-扩展原则：设计着眼未来，未来总比预想来得快" class="headerlink" title="17. 扩展原则：设计着眼未来，未来总比预想来得快"></a>17. 扩展原则：设计着眼未来，未来总比预想来得快</h2>
+<h2 id="原型设计"><a href="#原型设计" class="headerlink" title="原型设计"></a>原型设计</h2><p>首先我们要拆分问题，一个支持多任务，多分片，多协议，还能断点续传的下载器无疑是复杂的任务，一时半会儿想不出好的解决方案。所以先将问题拆分简化，刨除所有的定语，一个下载器首先要能发出请求，然后将收到的数据保存至文件，其次才是逐个完成定语对应的功能。</p>
+<h2 id="如何使用go完成http协议下载？"><a href="#如何使用go完成http协议下载？" class="headerlink" title="如何使用go完成http协议下载？"></a>如何使用go完成http协议下载？</h2><p>先写测试程序，目标：把baidu的首页html文件下载下来并保存到当前目录</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestDownload</span><span class="hljs-params">(f *testing.T)</span></span> &#123;<br>  <span class="hljs-comment">// 请求baidu首页</span><br>  resp, err := http.Get(<span class="hljs-string">&quot;http://www.baidu.com&quot;</span>)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;error&quot;</span>, err)<br>  &#125;<br>  <span class="hljs-comment">// 不要忘记结束时关闭IO流</span><br>  <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(Body io.ReadCloser)</span></span> &#123;<br>    err := Body.Close()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>      fmt.Println(<span class="hljs-string">&quot;close error&quot;</span>, err)<br>    &#125;<br>  &#125;(resp.Body)<br>  <span class="hljs-comment">// 读取收到的数据</span><br>  body, err := io.ReadAll(resp.Body)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;read failed&quot;</span>, err)<br>  &#125;<br>  <span class="hljs-comment">// 写入文件</span><br>  err = WriteFile(<span class="hljs-string">&quot;./index.html&quot;</span>, body)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;=======failed=======&quot;</span>)<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  fmt.Println(<span class="hljs-string">&quot;=======finished=======&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">WriteFile</span><span class="hljs-params">(filePath <span class="hljs-type">string</span>, content []<span class="hljs-type">byte</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>  file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, <span class="hljs-number">0666</span>)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;file: &#x27;&quot;</span> + filePath + <span class="hljs-string">&quot;&#x27; open filed&quot;</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>  &#125;<br>  <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(file *os.File)</span></span> &#123;<br>    err := file.Close()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>    &#125;<br>  &#125;(file)<br>  write := bufio.NewWriter(file)<br>  <span class="hljs-keyword">if</span> _, err := write.Write(content); err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;file: &#x27;&quot;</span> + filePath + <span class="hljs-string">&quot;&#x27; write failed&quot;</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此我们已经可以将baidu的首页是保存至本地。但这代码既不支持断点续传，也不能多个分片并行，不能满足我们的要求。可是通过这段代码，我们得以明白，下载器的核心就是下载数据，然后写入指定的位置接。接下来，我们要逐步完善它。</p>
+<h2 id="实现断点续传"><a href="#实现断点续传" class="headerlink" title="实现断点续传"></a>实现断点续传</h2><p>为什么先说断点续传，因为分片并行下载的前提就是支持断点续传</p>
+<h3 id="http协议如何做到断点续传？"><a href="#http协议如何做到断点续传？" class="headerlink" title="http协议如何做到断点续传？"></a>http协议如何做到断点续传？</h3><h3 id="如何分片写入文件"><a href="#如何分片写入文件" class="headerlink" title="如何分片写入文件?"></a>如何分片写入文件?</h3>
                 
               </div>
             
@@ -275,11 +282,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+        <a href="/tags/go/">#go</a>
       
-        <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#程序设计</a>
+        <a href="/tags/home-center/">#home-center</a>
       
-        <a href="/tags/Unix%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF/">#Unix编程艺术</a>
+        <a href="/tags/go-downloader/">#go-downloader</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B%E6%97%A5%E5%BF%97/">#编程日志</a>
       
     </div>
   
@@ -291,8 +300,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>评Unix哲学基础</div>
-      <div>http://firestige.xyz/unix-philosophy-e7f3e70abb5a/</div>
+      <div>从零开始的golang编程（day1）</div>
+      <div>http://firestige.xyz/go-downloader-1-f517effa7d7b/</div>
     </div>
     <div class="license-meta">
       
@@ -304,7 +313,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月24日</div>
+          <div>2023年9月3日</div>
         </div>
       
       
@@ -336,9 +345,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/go-downloader-0-3281461c64fb/" title="从零开始的golang编程（day0）">
+                      <a href="/state-management-in-react-dca2d154d95d/" title="浅谈使用hook实现React中的应用状态管理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从零开始的golang编程（day0）</span>
+                        <span class="hidden-mobile">浅谈使用hook实现React中的应用状态管理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -346,8 +355,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/remove-redundant-and-compact-string-8589e22d4ce2/" title="移除重复字符串和字符串压缩">
-                        <span class="hidden-mobile">移除重复字符串和字符串压缩</span>
+                      <a href="/go-downloader-0-3281461c64fb/" title="从零开始的golang编程（day0）">
+                        <span class="hidden-mobile">从零开始的golang编程（day0）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

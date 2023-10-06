@@ -16,24 +16,25 @@
   <meta name="author" content="firestige">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+    <meta name="description" content="背景虽然被部门安排去搞解决方案，转型胶片工程师，但我果然还是喜欢写代码。写了五年java，想换换口味，打算开个新坑，用一个项目完成go的入门。刚好每周都要去漫画网站还有番剧网站扫货，可是下载、归档、观赏总是要多个不同的应用衔接。尤其在归档和检索资源的时候，总需要大量人工。后续家里搞起媒体中心之后，多端观看也是问题。不如趁此机会实践一番，所以项目就这样启动啦。 目标 定位家庭数据中心管理软件，负责多">
 <meta property="og:type" content="article">
-<meta property="og:title" content="评Unix哲学基础">
-<meta property="og:url" content="http://firestige.xyz/unix-philosophy-e7f3e70abb5a/index.html">
+<meta property="og:title" content="从零开始的golang编程（day0）">
+<meta property="og:url" content="http://firestige.xyz/go-downloader-0-3281461c64fb/index.html">
 <meta property="og:site_name" content="试替哥的看板墙">
-<meta property="og:description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+<meta property="og:description" content="背景虽然被部门安排去搞解决方案，转型胶片工程师，但我果然还是喜欢写代码。写了五年java，想换换口味，打算开个新坑，用一个项目完成go的入门。刚好每周都要去漫画网站还有番剧网站扫货，可是下载、归档、观赏总是要多个不同的应用衔接。尤其在归档和检索资源的时候，总需要大量人工。后续家里搞起媒体中心之后，多端观看也是问题。不如趁此机会实践一番，所以项目就这样启动啦。 目标 定位家庭数据中心管理软件，负责多">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-02T19:32:29.930Z">
+<meta property="article:published_time" content="2023-09-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-06T13:08:56.872Z">
 <meta property="article:author" content="firestige">
-<meta property="article:tag" content="读书笔记">
-<meta property="article:tag" content="程序设计">
-<meta property="article:tag" content="Unix编程艺术">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="home-center">
+<meta property="article:tag" content="go-downloader">
+<meta property="article:tag" content="编程日志">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>评Unix哲学基础 - 试替哥的看板墙</title>
+  <title>从零开始的golang编程（day0） - 试替哥的看板墙</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="评Unix哲学基础"></span>
+            <span id="subtitle" data-typed-text="从零开始的golang编程（day0）"></span>
           
         </div>
 
@@ -194,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-24 00:00" pubdate>
-          2023年8月24日 凌晨
+        <time datetime="2023-09-02 00:00" pubdate>
+          2023年9月2日 凌晨
         </time>
       </span>
     
@@ -206,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          470 字
+          413 字
         
       </span>
     
@@ -255,15 +256,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">评Unix哲学基础</h1>
+            <h1 style="display: none">从零开始的golang编程（day0）</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。</p>
-</blockquote>
-<h2 id="1-模块原则：使用简洁的接口拼合简单的部件"><a href="#1-模块原则：使用简洁的接口拼合简单的部件" class="headerlink" title="1. 模块原则：使用简洁的接口拼合简单的部件"></a>1. 模块原则：使用简洁的接口拼合简单的部件</h2><h2 id="2-清晰原则：清晰胜于机巧"><a href="#2-清晰原则：清晰胜于机巧" class="headerlink" title="2. 清晰原则：清晰胜于机巧"></a>2. 清晰原则：清晰胜于机巧</h2><h2 id="3-组合原则：设计时考虑拼接组合"><a href="#3-组合原则：设计时考虑拼接组合" class="headerlink" title="3. 组合原则：设计时考虑拼接组合"></a>3. 组合原则：设计时考虑拼接组合</h2><h2 id="4-分离原则：策略同机制分离，接口同引擎分离"><a href="#4-分离原则：策略同机制分离，接口同引擎分离" class="headerlink" title="4. 分离原则：策略同机制分离，接口同引擎分离"></a>4. 分离原则：策略同机制分离，接口同引擎分离</h2><h2 id="5-简洁原则：设计要简洁，复杂度能低则低"><a href="#5-简洁原则：设计要简洁，复杂度能低则低" class="headerlink" title="5. 简洁原则：设计要简洁，复杂度能低则低"></a>5. 简洁原则：设计要简洁，复杂度能低则低</h2><h2 id="6-吝啬原则：除非却无他法，不要编写庞大的程序"><a href="#6-吝啬原则：除非却无他法，不要编写庞大的程序" class="headerlink" title="6. 吝啬原则：除非却无他法，不要编写庞大的程序"></a>6. 吝啬原则：除非却无他法，不要编写庞大的程序</h2><h2 id="7-透明性原则：设计要可见，以便审查和调试"><a href="#7-透明性原则：设计要可见，以便审查和调试" class="headerlink" title="7. 透明性原则：设计要可见，以便审查和调试"></a>7. 透明性原则：设计要可见，以便审查和调试</h2><h2 id="8-健壮原则：健壮源于透明与简洁"><a href="#8-健壮原则：健壮源于透明与简洁" class="headerlink" title="8. 健壮原则：健壮源于透明与简洁"></a>8. 健壮原则：健壮源于透明与简洁</h2><h2 id="9-表示原则：把知识叠入数据以求逻辑质朴而健壮"><a href="#9-表示原则：把知识叠入数据以求逻辑质朴而健壮" class="headerlink" title="9. 表示原则：把知识叠入数据以求逻辑质朴而健壮"></a>9. 表示原则：把知识叠入数据以求逻辑质朴而健壮</h2><h2 id="10-通俗原则：设计接口避免标新立异"><a href="#10-通俗原则：设计接口避免标新立异" class="headerlink" title="10. 通俗原则：设计接口避免标新立异"></a>10. 通俗原则：设计接口避免标新立异</h2><h2 id="11-缄默原则：如果一个程序没什么好说的，保持沉默"><a href="#11-缄默原则：如果一个程序没什么好说的，保持沉默" class="headerlink" title="11. 缄默原则：如果一个程序没什么好说的，保持沉默"></a>11. 缄默原则：如果一个程序没什么好说的，保持沉默</h2><h2 id="12-补救原则：出现异常时，马上退出并给出足够错误信息"><a href="#12-补救原则：出现异常时，马上退出并给出足够错误信息" class="headerlink" title="12. 补救原则：出现异常时，马上退出并给出足够错误信息"></a>12. 补救原则：出现异常时，马上退出并给出足够错误信息</h2><h2 id="13-经济原则：宁花机器一分，不花程序员一秒"><a href="#13-经济原则：宁花机器一分，不花程序员一秒" class="headerlink" title="13. 经济原则：宁花机器一分，不花程序员一秒"></a>13. 经济原则：宁花机器一分，不花程序员一秒</h2><h2 id="14-生成原则：避免手工hack，尽量编写程序去生成程序"><a href="#14-生成原则：避免手工hack，尽量编写程序去生成程序" class="headerlink" title="14. 生成原则：避免手工hack，尽量编写程序去生成程序"></a>14. 生成原则：避免手工hack，尽量编写程序去生成程序</h2><h2 id="15-优化原则：雕琢前先要有原型，跑之前先学会走"><a href="#15-优化原则：雕琢前先要有原型，跑之前先学会走" class="headerlink" title="15. 优化原则：雕琢前先要有原型，跑之前先学会走"></a>15. 优化原则：雕琢前先要有原型，跑之前先学会走</h2><h2 id="16-多样原则：绝不相信所谓“不二法门”的断言"><a href="#16-多样原则：绝不相信所谓“不二法门”的断言" class="headerlink" title="16. 多样原则：绝不相信所谓“不二法门”的断言"></a>16. 多样原则：绝不相信所谓“不二法门”的断言</h2><h2 id="17-扩展原则：设计着眼未来，未来总比预想来得快"><a href="#17-扩展原则：设计着眼未来，未来总比预想来得快" class="headerlink" title="17. 扩展原则：设计着眼未来，未来总比预想来得快"></a>17. 扩展原则：设计着眼未来，未来总比预想来得快</h2>
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>虽然被部门安排去搞解决方案，转型胶片工程师，但我果然还是喜欢写代码。写了五年java，想换换口味，打算开个新坑，用一个项目完成go的入门。刚好每周都要去漫画网站还有番剧网站扫货，可是下载、归档、观赏总是要多个不同的应用衔接。尤其在归档和检索资源的时候，总需要大量人工。后续家里搞起媒体中心之后，多端观看也是问题。不如趁此机会实践一番，所以项目就这样启动啦。</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol>
+<li>定位家庭数据中心管理软件，负责多媒体、游戏库等数字资源的存储、归档工作。</li>
+<li>支持图片、音乐、视频的全平台在线播放</li>
+<li>提供steam游戏库CDN加速能力，maven库，node源等常用仓库代理缓存的能力</li>
+<li>支持http和torrent下载</li>
+<li>支持断点续传，支持多任务多分片同时下载</li>
+<li>可以对图片文件进行分类，打标签</li>
+<li>提供任务编排能力，允许配置图片，文本，torrent文件自动下载，分析归档任务</li>
+<li>支持配置周期任务，进行重点数据的归档，压缩和冷备份</li>
+<li>存储支持NAS或者OSS</li>
+</ol>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>架构图待补</p>
+
                 
               </div>
             
@@ -275,11 +286,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+        <a href="/tags/go/">#go</a>
       
-        <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#程序设计</a>
+        <a href="/tags/home-center/">#home-center</a>
       
-        <a href="/tags/Unix%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF/">#Unix编程艺术</a>
+        <a href="/tags/go-downloader/">#go-downloader</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B%E6%97%A5%E5%BF%97/">#编程日志</a>
       
     </div>
   
@@ -291,8 +304,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>评Unix哲学基础</div>
-      <div>http://firestige.xyz/unix-philosophy-e7f3e70abb5a/</div>
+      <div>从零开始的golang编程（day0）</div>
+      <div>http://firestige.xyz/go-downloader-0-3281461c64fb/</div>
     </div>
     <div class="license-meta">
       
@@ -304,7 +317,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月24日</div>
+          <div>2023年9月2日</div>
         </div>
       
       
@@ -336,9 +349,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/go-downloader-0-3281461c64fb/" title="从零开始的golang编程（day0）">
+                      <a href="/go-downloader-1-f517effa7d7b/" title="从零开始的golang编程（day1）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从零开始的golang编程（day0）</span>
+                        <span class="hidden-mobile">从零开始的golang编程（day1）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -346,8 +359,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/remove-redundant-and-compact-string-8589e22d4ce2/" title="移除重复字符串和字符串压缩">
-                        <span class="hidden-mobile">移除重复字符串和字符串压缩</span>
+                      <a href="/unix-philosophy-e7f3e70abb5a/" title="评Unix哲学基础">
+                        <span class="hidden-mobile">评Unix哲学基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

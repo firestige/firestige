@@ -4,6 +4,81 @@
   
   
   <entry>
+    <title>浅谈使用hook实现React中的应用状态管理</title>
+    <link href="/state-management-in-react-dca2d154d95d/"/>
+    <url>/state-management-in-react-dca2d154d95d/</url>
+    
+    <content type="html"><![CDATA[<p>状态管理可以说是所有应用中最难处理的一部分。这也是为什么当下存在这么多的状态管理工具，并且仍然层出不穷（有一些工具甚至建立在另一些之上，npm 中有大量 “简单版的 redux“）。然而，我认为正是由于我们经常过度设计，才导致这个问题这么难处理。</p><p>我们通常把 React 组件看做乐高积木，用它们来搭建应用。我觉着听到这个说法的人，通常会隐隐地觉得这个说法遗漏了和状态相关的那一部分。我自己使用的方法的“秘密”就是：对待状态管理问题时，想想怎么把应用的状态映射到应用的树状结构上面去。</p><p>redux 大获成功的原因之一就是它解决了Prop Drilling问题。通过把组件传给一些神奇的 connect 函数就可以让数据共享到应用树的任意地方的做法确实很棒。对 reducers&#x2F;action creator 的使用也不错，但我仍然坚信 redux 的被普遍使用的原因是它为开发者解决了 prop drilling 所带来的痛苦。</p><p>我经常看到开发者把他们所有的状态（state）都放到 redux 中。包括全局状态和本地状态。这会导致非常多的问题，其中最重要的一个是，当你在维护任何状态交互时，都将会涉及到 reducer 、action creator &#x2F; types 和 dispatch 调用的交互，这最终导致我们必须打开一大堆文件，并在大脑中追溯代码实现，才能弄明白当下发生了什么，以及它对代码库的其它部分产生了什么样的影响。</p><p>澄清一下，这样对于全局状态来说是没问题的，但是对于简单的状态（比如一个弹窗是否打开，或者表单中填写的值）来说就会是很大的问题。更糟糕的是，这样基本没法扩展。你的应用越大，这个问题就越难处理。当然，用不一样的 reducer 去管理应用中的不同部分是没问题的，但是通过这些 action creators 和 reducer 来间接处理的方式并不是最好的。</p><p>就算没有使用 redux ，把应用中的所有状态全放在一个对象上还是会导致其他问题。当 React &lt;Context.Provider&gt; 获取到一个新的值，所有消费它的组件都会被更新且必须被渲染，哪怕它是一个只关心其中部分数据的函数组件。这就会带来潜在的性能问题（React-Redux v6 尝试使用这个办法，然后发现它不能和 hook 一起工作，这导致他们在 v7 中需要用其他办法来处理）。我的重点在于，如果把状态从逻辑上分隔开并且放在 React 树上对应合适的位置，那你就不用担心这些问题了。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>js</tag>
+      
+      <tag>react</tag>
+      
+      <tag>状态管理</tag>
+      
+      <tag>前端</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>从零开始的golang编程（day1）</title>
+    <link href="/go-downloader-1-f517effa7d7b/"/>
+    <url>/go-downloader-1-f517effa7d7b/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>第一天，完成go下载器的搭建</p></blockquote><h2 id="原型设计"><a href="#原型设计" class="headerlink" title="原型设计"></a>原型设计</h2><p>首先我们要拆分问题，一个支持多任务，多分片，多协议，还能断点续传的下载器无疑是复杂的任务，一时半会儿想不出好的解决方案。所以先将问题拆分简化，刨除所有的定语，一个下载器首先要能发出请求，然后将收到的数据保存至文件，其次才是逐个完成定语对应的功能。</p><h2 id="如何使用go完成http协议下载？"><a href="#如何使用go完成http协议下载？" class="headerlink" title="如何使用go完成http协议下载？"></a>如何使用go完成http协议下载？</h2><p>先写测试程序，目标：把baidu的首页html文件下载下来并保存到当前目录</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestDownload</span><span class="hljs-params">(f *testing.T)</span></span> &#123;<br>  <span class="hljs-comment">// 请求baidu首页</span><br>  resp, err := http.Get(<span class="hljs-string">&quot;http://www.baidu.com&quot;</span>)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;error&quot;</span>, err)<br>  &#125;<br>  <span class="hljs-comment">// 不要忘记结束时关闭IO流</span><br>  <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(Body io.ReadCloser)</span></span> &#123;<br>    err := Body.Close()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>      fmt.Println(<span class="hljs-string">&quot;close error&quot;</span>, err)<br>    &#125;<br>  &#125;(resp.Body)<br>  <span class="hljs-comment">// 读取收到的数据</span><br>  body, err := io.ReadAll(resp.Body)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;read failed&quot;</span>, err)<br>  &#125;<br>  <span class="hljs-comment">// 写入文件</span><br>  err = WriteFile(<span class="hljs-string">&quot;./index.html&quot;</span>, body)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;=======failed=======&quot;</span>)<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  fmt.Println(<span class="hljs-string">&quot;=======finished=======&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">WriteFile</span><span class="hljs-params">(filePath <span class="hljs-type">string</span>, content []<span class="hljs-type">byte</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>  file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, <span class="hljs-number">0666</span>)<br>  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;file: &#x27;&quot;</span> + filePath + <span class="hljs-string">&quot;&#x27; open filed&quot;</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>  &#125;<br>  <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(file *os.File)</span></span> &#123;<br>    err := file.Close()<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>    &#125;<br>  &#125;(file)<br>  write := bufio.NewWriter(file)<br>  <span class="hljs-keyword">if</span> _, err := write.Write(content); err != <span class="hljs-literal">nil</span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;file: &#x27;&quot;</span> + filePath + <span class="hljs-string">&quot;&#x27; write failed&quot;</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure><p>至此我们已经可以将baidu的首页是保存至本地。但这代码既不支持断点续传，也不能多个分片并行，不能满足我们的要求。可是通过这段代码，我们得以明白，下载器的核心就是下载数据，然后写入指定的位置接。接下来，我们要逐步完善它。</p><h2 id="实现断点续传"><a href="#实现断点续传" class="headerlink" title="实现断点续传"></a>实现断点续传</h2><p>为什么先说断点续传，因为分片并行下载的前提就是支持断点续传</p><h3 id="http协议如何做到断点续传？"><a href="#http协议如何做到断点续传？" class="headerlink" title="http协议如何做到断点续传？"></a>http协议如何做到断点续传？</h3><h3 id="如何分片写入文件"><a href="#如何分片写入文件" class="headerlink" title="如何分片写入文件?"></a>如何分片写入文件?</h3>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>go</tag>
+      
+      <tag>home-center</tag>
+      
+      <tag>go-downloader</tag>
+      
+      <tag>编程日志</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>从零开始的golang编程（day0）</title>
+    <link href="/go-downloader-0-3281461c64fb/"/>
+    <url>/go-downloader-0-3281461c64fb/</url>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>虽然被部门安排去搞解决方案，转型胶片工程师，但我果然还是喜欢写代码。写了五年java，想换换口味，打算开个新坑，用一个项目完成go的入门。刚好每周都要去漫画网站还有番剧网站扫货，可是下载、归档、观赏总是要多个不同的应用衔接。尤其在归档和检索资源的时候，总需要大量人工。后续家里搞起媒体中心之后，多端观看也是问题。不如趁此机会实践一番，所以项目就这样启动啦。</p><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ol><li>定位家庭数据中心管理软件，负责多媒体、游戏库等数字资源的存储、归档工作。</li><li>支持图片、音乐、视频的全平台在线播放</li><li>提供steam游戏库CDN加速能力，maven库，node源等常用仓库代理缓存的能力</li><li>支持http和torrent下载</li><li>支持断点续传，支持多任务多分片同时下载</li><li>可以对图片文件进行分类，打标签</li><li>提供任务编排能力，允许配置图片，文本，torrent文件自动下载，分析归档任务</li><li>支持配置周期任务，进行重点数据的归档，压缩和冷备份</li><li>存储支持NAS或者OSS</li></ol><h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>架构图待补</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>go</tag>
+      
+      <tag>home-center</tag>
+      
+      <tag>go-downloader</tag>
+      
+      <tag>编程日志</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>评Unix哲学基础</title>
     <link href="/unix-philosophy-e7f3e70abb5a/"/>
     <url>/unix-philosophy-e7f3e70abb5a/</url>
@@ -44,19 +119,6 @@
       <tag>Java</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>你好，世界</title>
-    <link href="/hello-world-9e53a594f4b2/"/>
-    <url>/hello-world-9e53a594f4b2/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
     
   </entry>
   
