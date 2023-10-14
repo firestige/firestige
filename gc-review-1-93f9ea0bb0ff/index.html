@@ -16,24 +16,24 @@
   <meta name="author" content="firestige">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+    <meta name="description" content="对象 不同于OOP，这里的对象指的是应用程序使用的数据的集合。 对象配置在内存空间里。 对象时GC的基本运作单位  一般说来，对象由头（Header）和域（Field）构成 头对象中保存对象本身信息的部分称为头，主要包含：  对象的大小 对象的种类  域对象使用者在对象中可访问的部分称为域。  可以将域理解为java中class的成员变量，如class A {  int val;}若有A的实例a，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="评Unix哲学基础">
-<meta property="og:url" content="http://firestige.xyz/unix-philosophy-e7f3e70abb5a/index.html">
+<meta property="og:title" content="垃圾回收的算法与实现学习笔记——基本概念">
+<meta property="og:url" content="http://firestige.xyz/gc-review-1-93f9ea0bb0ff/index.html">
 <meta property="og:site_name" content="试替哥的看板墙">
-<meta property="og:description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件2. 清晰原则：清晰胜于机巧3. 组合原则：设计时考虑拼接组合4. 分离原则：策略同机制分离，接口同引擎分离5. 简洁原则：设计要简洁，复杂度">
+<meta property="og:description" content="对象 不同于OOP，这里的对象指的是应用程序使用的数据的集合。 对象配置在内存空间里。 对象时GC的基本运作单位  一般说来，对象由头（Header）和域（Field）构成 头对象中保存对象本身信息的部分称为头，主要包含：  对象的大小 对象的种类  域对象使用者在对象中可访问的部分称为域。  可以将域理解为java中class的成员变量，如class A {  int val;}若有A的实例a，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-14T12:12:14.757Z">
+<meta property="article:published_time" content="2023-10-11T08:41:00.000Z">
+<meta property="article:modified_time" content="2023-10-14T12:12:14.756Z">
 <meta property="article:author" content="firestige">
-<meta property="article:tag" content="读书笔记">
-<meta property="article:tag" content="程序设计">
-<meta property="article:tag" content="Unix编程艺术">
+<meta property="article:tag" content="GC">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="垃圾回收的算法与实现">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>评Unix哲学基础 - 试替哥的看板墙</title>
+  <title>垃圾回收的算法与实现学习笔记——基本概念 - 试替哥的看板墙</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="评Unix哲学基础"></span>
+            <span id="subtitle" data-typed-text="垃圾回收的算法与实现学习笔记——基本概念"></span>
           
         </div>
 
@@ -194,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-24 00:00" pubdate>
-          2023年8月24日 凌晨
+        <time datetime="2023-10-11 16:41" pubdate>
+          2023年10月11日 下午
         </time>
       </span>
     
@@ -206,7 +206,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          470 字
+          1.1k 字
         
       </span>
     
@@ -217,7 +217,7 @@
         
         
         
-          4 分钟
+          10 分钟
         
       </span>
     
@@ -255,15 +255,68 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">评Unix哲学基础</h1>
+            <h1 style="display: none">垃圾回收的算法与实现学习笔记——基本概念</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。</p>
+                <h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><ul>
+<li>不同于OOP，这里的对象指的是应用程序使用的数据的集合。</li>
+<li>对象配置在内存空间里。</li>
+<li>对象时GC的基本运作单位</li>
+</ul>
+<p>一般说来，对象由头（<code>Header</code>）和域（<code>Field</code>）构成</p>
+<h3 id="头"><a href="#头" class="headerlink" title="头"></a>头</h3><p>对象中保存对象本身信息的部分称为头，主要包含：</p>
+<ul>
+<li>对象的大小</li>
+<li>对象的种类</li>
+</ul>
+<h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><p>对象使用者在对象中可访问的部分称为域。</p>
+<blockquote>
+<p>可以将域理解为java中class的成员变量，如<br>class A {<br>  int val;<br>}<br>若有A的实例a，则a.val就是对象a的域</p>
 </blockquote>
-<h2 id="1-模块原则：使用简洁的接口拼合简单的部件"><a href="#1-模块原则：使用简洁的接口拼合简单的部件" class="headerlink" title="1. 模块原则：使用简洁的接口拼合简单的部件"></a>1. 模块原则：使用简洁的接口拼合简单的部件</h2><h2 id="2-清晰原则：清晰胜于机巧"><a href="#2-清晰原则：清晰胜于机巧" class="headerlink" title="2. 清晰原则：清晰胜于机巧"></a>2. 清晰原则：清晰胜于机巧</h2><h2 id="3-组合原则：设计时考虑拼接组合"><a href="#3-组合原则：设计时考虑拼接组合" class="headerlink" title="3. 组合原则：设计时考虑拼接组合"></a>3. 组合原则：设计时考虑拼接组合</h2><h2 id="4-分离原则：策略同机制分离，接口同引擎分离"><a href="#4-分离原则：策略同机制分离，接口同引擎分离" class="headerlink" title="4. 分离原则：策略同机制分离，接口同引擎分离"></a>4. 分离原则：策略同机制分离，接口同引擎分离</h2><h2 id="5-简洁原则：设计要简洁，复杂度能低则低"><a href="#5-简洁原则：设计要简洁，复杂度能低则低" class="headerlink" title="5. 简洁原则：设计要简洁，复杂度能低则低"></a>5. 简洁原则：设计要简洁，复杂度能低则低</h2><h2 id="6-吝啬原则：除非却无他法，不要编写庞大的程序"><a href="#6-吝啬原则：除非却无他法，不要编写庞大的程序" class="headerlink" title="6. 吝啬原则：除非却无他法，不要编写庞大的程序"></a>6. 吝啬原则：除非却无他法，不要编写庞大的程序</h2><h2 id="7-透明性原则：设计要可见，以便审查和调试"><a href="#7-透明性原则：设计要可见，以便审查和调试" class="headerlink" title="7. 透明性原则：设计要可见，以便审查和调试"></a>7. 透明性原则：设计要可见，以便审查和调试</h2><h2 id="8-健壮原则：健壮源于透明与简洁"><a href="#8-健壮原则：健壮源于透明与简洁" class="headerlink" title="8. 健壮原则：健壮源于透明与简洁"></a>8. 健壮原则：健壮源于透明与简洁</h2><h2 id="9-表示原则：把知识叠入数据以求逻辑质朴而健壮"><a href="#9-表示原则：把知识叠入数据以求逻辑质朴而健壮" class="headerlink" title="9. 表示原则：把知识叠入数据以求逻辑质朴而健壮"></a>9. 表示原则：把知识叠入数据以求逻辑质朴而健壮</h2><h2 id="10-通俗原则：设计接口避免标新立异"><a href="#10-通俗原则：设计接口避免标新立异" class="headerlink" title="10. 通俗原则：设计接口避免标新立异"></a>10. 通俗原则：设计接口避免标新立异</h2><h2 id="11-缄默原则：如果一个程序没什么好说的，保持沉默"><a href="#11-缄默原则：如果一个程序没什么好说的，保持沉默" class="headerlink" title="11. 缄默原则：如果一个程序没什么好说的，保持沉默"></a>11. 缄默原则：如果一个程序没什么好说的，保持沉默</h2><h2 id="12-补救原则：出现异常时，马上退出并给出足够错误信息"><a href="#12-补救原则：出现异常时，马上退出并给出足够错误信息" class="headerlink" title="12. 补救原则：出现异常时，马上退出并给出足够错误信息"></a>12. 补救原则：出现异常时，马上退出并给出足够错误信息</h2><h2 id="13-经济原则：宁花机器一分，不花程序员一秒"><a href="#13-经济原则：宁花机器一分，不花程序员一秒" class="headerlink" title="13. 经济原则：宁花机器一分，不花程序员一秒"></a>13. 经济原则：宁花机器一分，不花程序员一秒</h2><h2 id="14-生成原则：避免手工hack，尽量编写程序去生成程序"><a href="#14-生成原则：避免手工hack，尽量编写程序去生成程序" class="headerlink" title="14. 生成原则：避免手工hack，尽量编写程序去生成程序"></a>14. 生成原则：避免手工hack，尽量编写程序去生成程序</h2><h2 id="15-优化原则：雕琢前先要有原型，跑之前先学会走"><a href="#15-优化原则：雕琢前先要有原型，跑之前先学会走" class="headerlink" title="15. 优化原则：雕琢前先要有原型，跑之前先学会走"></a>15. 优化原则：雕琢前先要有原型，跑之前先学会走</h2><h2 id="16-多样原则：绝不相信所谓“不二法门”的断言"><a href="#16-多样原则：绝不相信所谓“不二法门”的断言" class="headerlink" title="16. 多样原则：绝不相信所谓“不二法门”的断言"></a>16. 多样原则：绝不相信所谓“不二法门”的断言</h2><h2 id="17-扩展原则：设计着眼未来，未来总比预想来得快"><a href="#17-扩展原则：设计着眼未来，未来总比预想来得快" class="headerlink" title="17. 扩展原则：设计着眼未来，未来总比预想来得快"></a>17. 扩展原则：设计着眼未来，未来总比预想来得快</h2>
+<p>域的值有两种：</p>
+<ul>
+<li>指针</li>
+<li>非指针</li>
+</ul>
+<p>指针就是执行啊内存空间中某块区域的值，C语言中有明确的指针类型，java则没有。对于没有暴露指针的语言，可以将其理解为引用</p>
+<p>非指针值得是在编程过程中直接使用值本身，比如java中的int、bool等都是非指针。</p>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><p>GC程序通过指针找到需要销毁或者保留对象，另一方面GC程序不处理非指针。</p>
+<p>有两点需要注意：</p>
+<ul>
+<li>程序是否能判别指针和非指针</li>
+<li>指针会指向对象的哪个部分</li>
+</ul>
+<h2 id="Mutator"><a href="#Mutator" class="headerlink" title="Mutator"></a>Mutator</h2><p>如果说GC程序负责回收垃圾，那么mutator就是负责创建对象的程序</p>
+<p>mutator实际进行的操作有以下两种：</p>
+<ul>
+<li>生成对象</li>
+<li>更新指针</li>
+</ul>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是用于动态存放对象的内存空间。当mutator申请存放对象时，所需内存空间会从这个堆中被分配给mutator。</p>
+<h2 id="活动对象-x2F-非活动对象"><a href="#活动对象-x2F-非活动对象" class="headerlink" title="活动对象&#x2F;非活动对象"></a>活动对象&#x2F;非活动对象</h2><p>堆中能被mutator引用的对象称为“活动对象”；堆中不能通过遍历引用访问到的对象称为“非活动对象”。换言之，这些“非活动对象”就是“垃圾”。</p>
+<blockquote>
+<p>需要注意，成为垃圾的对象不能活过来，因为mutator再也找不到它。</p>
+</blockquote>
+<h2 id="分配"><a href="#分配" class="headerlink" title="分配"></a>分配</h2><p>当mutator需要创建新对象时，就会向allocator申请一个大小合适的空间。而allocator在堆的可用空间中寻找满足要求的连续空间，并返回给mutator。</p>
+<h2 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h2><p>分块（chunk）在这里指的是为利用对象而事分配好的单元。</p>
+<p>初始状态下，堆被一个大的分块所占据</p>
+<p>程序会根据mutator的要求把这个分块分割成合适的大小，作为（活动）对象使用。</p>
+<p>内存里的各个区块都重复着分块-〉活动对象-〉垃圾（非活动对象）-〉分块-〉……这样的过程</p>
+<h2 id="根"><a href="#根" class="headerlink" title="根"></a>根</h2><p>根是指向对象的指针的“起点”部分。</p>
+<h2 id="评价标准"><a href="#评价标准" class="headerlink" title="评价标准"></a>评价标准</h2><h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><p>一般意义上，吞吐量指的是“在单位时间内的处理能力”。</p>
+<p>即便是同一GC算法，其吞吐量也是受mutator的动作左右的。评价GC算法的吞吐量，有必要吧mutator的动作考虑在内。</p>
+<h3 id="最大暂停时间"><a href="#最大暂停时间" class="headerlink" title="最大暂停时间"></a>最大暂停时间</h3><p>最大暂停时间指的是“因执行GC而暂停执行mutator的最长时间”</p>
+<blockquote>
+<p>不管尝试哪种GC算法，大吞吐量和低延迟不可兼得</p>
+</blockquote>
+<h3 id="堆使用率"><a href="#堆使用率" class="headerlink" title="堆使用率"></a>堆使用率</h3><p>左右堆使用效率的因素有二，对象头的大小和调度堆空间的算法。</p>
+<blockquote>
+<p>不可能三角：堆使用效率，吞吐量和最大延迟不能兼顾</p>
+</blockquote>
+<h3 id="访问的局部性"><a href="#访问的局部性" class="headerlink" title="访问的局部性"></a>访问的局部性</h3><p>根据局部性原理，把有引用关系的对象安排在堆中较近的位置可以提高读取效率，提高mutator的运行速度。</p>
+
                 
               </div>
             
@@ -275,11 +328,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+        <a href="/tags/GC/">#GC</a>
       
-        <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#程序设计</a>
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
       
-        <a href="/tags/Unix%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF/">#Unix编程艺术</a>
+        <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0/">#垃圾回收的算法与实现</a>
       
     </div>
   
@@ -291,8 +344,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>评Unix哲学基础</div>
-      <div>http://firestige.xyz/unix-philosophy-e7f3e70abb5a/</div>
+      <div>垃圾回收的算法与实现学习笔记——基本概念</div>
+      <div>http://firestige.xyz/gc-review-1-93f9ea0bb0ff/</div>
     </div>
     <div class="license-meta">
       
@@ -304,7 +357,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月24日</div>
+          <div>2023年10月11日</div>
         </div>
       
       
@@ -336,18 +389,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/go-downloader-0-3281461c64fb/" title="从零开始的golang编程（day0）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从零开始的golang编程（day0）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/remove-redundant-and-compact-string-8589e22d4ce2/" title="移除重复字符串和字符串压缩">
-                        <span class="hidden-mobile">移除重复字符串和字符串压缩</span>
+                      <a href="/state-management-in-react-dca2d154d95d/" title="浅谈使用hook实现React中的应用状态管理">
+                        <span class="hidden-mobile">浅谈使用hook实现React中的应用状态管理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
