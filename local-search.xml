@@ -4,6 +4,48 @@
   
   
   <entry>
+    <title>设计模式——写在最前面</title>
+    <link href="/2024/desgin-patterns-1-3f3098a5c100/"/>
+    <url>/2024/desgin-patterns-1-3f3098a5c100/</url>
+    
+    <content type="html"><![CDATA[<h2 id="什么是设计模式"><a href="#什么是设计模式" class="headerlink" title="什么是设计模式"></a>什么是设计模式</h2><p>wiki中介绍，模式是存在于人们感知到的世界、人造设计或抽象思想中的规律。而设计模式（design pattern）是对软件设计中普遍存在（反复出现）的各种问题，所提出的解决方案。这个术语是由埃里希·伽玛（Erich Gamma）等人在1990年代从建筑设计领域引入到计算机科学的。</p><h2 id="为什么需要设计模式"><a href="#为什么需要设计模式" class="headerlink" title="为什么需要设计模式"></a>为什么需要设计模式</h2><ol><li>设计模式是针对软件设计中常见问题的工具箱， 其中的工具就是各种经过实践验证的解决方案。</li><li>设计模式定义了一种让你和团队成员能够更高效沟通的通用语言。</li></ol><h2 id="有多少种设计模式，如何对他们进行分类"><a href="#有多少种设计模式，如何对他们进行分类" class="headerlink" title="有多少种设计模式，如何对他们进行分类"></a>有多少种设计模式，如何对他们进行分类</h2><p>最基础的、 底层的模式通常被称为惯用技巧。 这类模式一般只能在一种编程语言中使用。</p><p>最通用的、 高层的模式是构架模式。 开发者可以在任何编程语言中使用这类模式。 与其他模式不同， 它们可用于整个应用程序的架构设计。</p><p>《GoF》中提出了23种设计模式，并将其归类为创建型模式，结构型模式，行为模式三类。但人们在后续的工作和学习中又总结并丰富了更多的模式，如《反应式设计模式》一书中又新增6类，27种架构模式。他们的关系图如下：</p><p><img src="/img/design-patterns/gof.svg" alt="GoF23"><br><img src="/img/design-patterns/reactor.svg" alt="反应式设计模式"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>设计模式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Java.util中的容器——List篇</title>
+    <link href="/2024/java-list-keypoints-9f3421da9ebf/"/>
+    <url>/2024/java-list-keypoints-9f3421da9ebf/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-继承结构"><a href="#1-继承结构" class="headerlink" title="1. 继承结构"></a>1. 继承结构</h2><p>可以看到</p><p><img src="/img/java-keypoints/List.svg" alt="类图"></p><blockquote><p>为什么ArrayList、Vector、LinkedList在继承了AbstractList之后还要再次申明实现了List接口呢？这是不是一种多余的行为？<br>就目前的结果而言确实多余，但是在util里所有的容器中，他们都采用了类似的写法。而且就我所知Josh Bloch没有解释为什么，所以这个问题可能没有官方解释。<br>我的理解是：在类定义中再次实现接口而不是通过继承抽象类获得接口的继承关系，意味着子类和接口有着明确的关系，不因父类的变化而变化。这在业务代码中是没哟意义的，但是作为标准库使用时就变得非常有必要，这样做可以避免修改的扩散。</p></blockquote><h2 id="2-ArrayList"><a href="#2-ArrayList" class="headerlink" title="2. ArrayList"></a>2. ArrayList</h2><h3 id="2-1-EMPTY-ELEMENTDATA和DEFAULTCAPACITY-EMPTY-ELEMENTDATA的关系"><a href="#2-1-EMPTY-ELEMENTDATA和DEFAULTCAPACITY-EMPTY-ELEMENTDATA的关系" class="headerlink" title="2.1. EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA的关系"></a>2.1. EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA的关系</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Shared empty array instance used for empty instances.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Shared empty array instance used for default sized empty instances. We</span><br><span class="hljs-comment"> * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when</span><br><span class="hljs-comment"> * first element is added.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;<br></code></pre></td></tr></table></figure><p>ArrayList定义了两个全局唯一的空对象数组用于表示空列表。其中<code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>仅用于使用无参构造器创建的空列表对象。其他场景下，都使用<code>EMPTY_ELEMENTDATA</code>来表示空列表。为什么要分别使用两个空数组，为何不更极致一些只用一个空数组呢？</p><p>答：为了精细化控制数组扩容长度。两者的分歧点在于<code>grow(int)</code>方法，使用无参构造器创建的列表在首次扩容时至少会被赋予10的长度。而通过反序列化、有参构造器创建出来的空数组，只会使用<code>EMPTY_ELEMENTDATA</code>，此时grow不受10的制约，会按照</p><h3 id="2-2-方法内联优化"><a href="#2-2-方法内联优化" class="headerlink" title="2.2. 方法内联优化"></a>2.2. 方法内联优化</h3><p>在阅读源码时可以看到如下内容：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E e)</span> &#123;<br>    modCount++;<br>    add(e, elementData, size);<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * This helper method split out from add(E) to keep method</span><br><span class="hljs-comment"> * bytecode size under 35 (the -XX:MaxInlineSize default value),</span><br><span class="hljs-comment"> * which helps when add(E) is called in a C1-compiled loop.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E e, Object[] elementData, <span class="hljs-type">int</span> s)</span> &#123;<br>    <span class="hljs-keyword">if</span> (s == elementData.length)<br>        elementData = grow();<br>    elementData[s] = e;<br>    size = s + <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p>这个私有的add方法仅在add(E)中出现，注释中说明这么做的目的是为了让方法体的字节码小于35从而保证激活内联优化。那么，内联优化的原理是什么？</p><h3 id="并发修改的判断"><a href="#并发修改的判断" class="headerlink" title="并发修改的判断"></a>并发修改的判断</h3><p>通过方法内final标记，以及独立的modcount计数器，数组长度来判断</p><h2 id="3-LinkedList"><a href="#3-LinkedList" class="headerlink" title="3. LinkedList"></a>3. LinkedList</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>源码分析</tag>
+      
+      <tag>每周一篇</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>垃圾回收的算法与实现学习笔记——基本概念</title>
     <link href="/gc-review-1-93f9ea0bb0ff/"/>
     <url>/gc-review-1-93f9ea0bb0ff/</url>
