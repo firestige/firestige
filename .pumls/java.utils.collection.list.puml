@@ -1,0 +1,18 @@
+@startuml List
+hide empty member
+
+interface Iterable<T> {}
+interface Collection<E> extends Iterable {}
+interface SequencedCollection<E> extends Collection {}
+interface List<E> extends SequencedCollection {}
+
+abstract class AbstractCollection<E> implements Collection {}
+abstract class AbstractList<E> extends AbstractCollection implements List {}
+abstract class AbstractSequentialList<E> extends AbstractList {}
+
+class ArrayList<E> extends AbstractList implements List {}
+class Vector<E> extends AbstractList implements List {}
+class Stack<E> extends Vector {}
+class LinkedList<E> extends AbstractSequentialList implements List {}
+
+@enduml
