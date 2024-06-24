@@ -21,17 +21,17 @@ tag:
 ### 2.1. EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA的关系
 
 ```java
-    /**
-     * Shared empty array instance used for empty instances.
-     */
-    private static final Object[] EMPTY_ELEMENTDATA = {};
+/**
+ * Shared empty array instance used for empty instances.
+ */
+private static final Object[] EMPTY_ELEMENTDATA = {};
 
-    /**
-     * Shared empty array instance used for default sized empty instances. We
-     * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when
-     * first element is added.
-     */
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+/**
+ * Shared empty array instance used for default sized empty instances. We
+ * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when
+ * first element is added.
+ */
+private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 ```
 
 ArrayList定义了两个全局唯一的空对象数组用于表示空列表。其中`DEFAULTCAPACITY_EMPTY_ELEMENTDATA`仅用于使用无参构造器创建的空列表对象。其他场景下，都使用`EMPTY_ELEMENTDATA`来表示空列表。为什么要分别使用两个空数组，为何不更极致一些只用一个空数组呢？
@@ -67,5 +67,3 @@ private void add(E e, Object[] elementData, int s) {
 ### 并发修改的判断
 
 通过方法内final标记，以及独立的modcount计数器，数组长度来判断
-
-## 3. LinkedList

@@ -1,0 +1,9 @@
+@startuml ApplicationListener
+hide empty member
+interface ApplicationListener<E extends ApplicationEvent> extends EventListener
+abstract class ApplicationContextEvent extends ApplicationEvent
+class ContextClosedEvent extends ApplicationContextEvent
+class ContextRefreshedEvent extends ApplicationContextEvent
+class ContextStartedEvent extends ApplicationContextEvent
+class ContextStoppedEvent extends ApplicationContextEvent
+@enduml
