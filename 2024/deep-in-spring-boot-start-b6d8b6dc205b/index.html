@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="firestige">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Spring boot启动过程分析调用SpringbootApplication.run()之后到底发生了什么？Spring是如何启动应用的？拓展点有很多，我该选谁？过程中有哪些设计可以借鉴？ 观察现象让我们看一段Spring Boot应用启动日志 &amp;#123;.line-numbers&amp;#125;12345678910111213141516171819202122232425262728293">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring boot启动过程分析">
+<meta property="og:url" content="http://firestige.xyz/2024/deep-in-spring-boot-start-b6d8b6dc205b/index.html">
+<meta property="og:site_name" content="试替哥的看板墙">
+<meta property="og:description" content="Spring boot启动过程分析调用SpringbootApplication.run()之后到底发生了什么？Spring是如何启动应用的？拓展点有很多，我该选谁？过程中有哪些设计可以借鉴？ 观察现象让我们看一段Spring Boot应用启动日志 &amp;#123;.line-numbers&amp;#125;12345678910111213141516171819202122232425262728293">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://firestige.xyz/img/spring-boot-start.jpg">
+<meta property="article:published_time" content="2024-06-24T04:41:00.000Z">
+<meta property="article:modified_time" content="2024-07-01T00:13:07.127Z">
+<meta property="article:author" content="firestige">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="源码分析">
+<meta property="article:tag" content="每周一篇">
+<meta property="article:tag" content="spring boot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://firestige.xyz/img/spring-boot-start.jpg">
+  
+  
+  
+  <title>Spring boot启动过程分析 - 试替哥的看板墙</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/iconfont-leetcode.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"firestige.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>试替哥的看板墙</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>联系我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wallhaven-l8yl6q_1920x1080.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring boot启动过程分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-24 12:41" pubdate>
+          2024年6月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          95 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring boot启动过程分析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Spring-boot启动过程分析"><a href="#Spring-boot启动过程分析" class="headerlink" title="Spring boot启动过程分析"></a>Spring boot启动过程分析</h2><p>调用SpringbootApplication.run()之后到底发生了什么？<br>Spring是如何启动应用的？<br>拓展点有很多，我该选谁？<br>过程中有哪些设计可以借鉴？</p>
+<h3 id="观察现象"><a href="#观察现象" class="headerlink" title="观察现象"></a>观察现象</h3><p>让我们看一段Spring Boot应用启动日志</p>
+<figure class="highlight plaintext"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs log"><br>02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer<br>02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer<br><br>  .   ____          _            __ _ _<br> /\\ / ___&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \<br>( ( )\___ | &#x27;_ | &#x27;_| | &#x27;_ \/ _` | \ \ \ \<br> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )<br>  &#x27;  |____| .__|_| |_|_| |_\__, | / / / /<br> =========|_|==============|___/=/_/_/_/<br> :: Spring Boot ::                (v3.2.0)<br><br>2024-06-24T02:55:58.893+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.SpringDemoApplication     : Starting SpringDemoApplication using Java 21 with PID 1364008 (\spring-demo\target\classes started by adam in \spring-demo)<br>2024-06-24T02:55:58.894+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.SpringDemoApplication     : No active profile set, falling back to 1 default profile: &quot;default&quot;<br>2024-06-24T02:55:58.926+08:00  INFO 1364008 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set &#x27;spring.devtools.add-properties&#x27; to &#x27;false&#x27; to disable<br>2024-06-24T02:55:58.926+08:00  INFO 1364008 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the &#x27;logging.level.web&#x27; property to &#x27;DEBUG&#x27;<br>2024-06-24T02:55:59.500+08:00  INFO 1364008 --- [  restartedMain] c.e.s.a.MyAppAutoConfiguration           : MyAppAutoConfiguration built!<br>2024-06-24T02:55:59.526+08:00  INFO 1364008 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729<br>2024-06-24T02:55:59.612+08:00  INFO 1364008 --- [  restartedMain] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080<br>2024-06-24T02:55:59.613+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.boot.web.reactive.context.ReactiveWebServerInitializedEvent[source=org.springframework.boot.web.embedded.netty.NettyWebServer@58fb4529]<br>2024-06-24T02:55:59.614+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.boot.web.reactive.context.ReactiveWebServerInitializedEvent<br>2024-06-24T02:55:59.614+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.boot.web.reactive.context.ReactiveWebServerInitializedEvent[source=org.springframework.boot.web.embedded.netty.NettyWebServer@58fb4529]<br>2024-06-24T02:55:59.614+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br>2024-06-24T02:55:59.617+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.context.event.ContextRefreshedEvent<br>2024-06-24T02:55:59.617+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br>2024-06-24T02:55:59.617+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.SpringDemoApplication     : Started SpringDemoApplication in 0.913 seconds (process running for 1.276)<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.boot.context.event.ApplicationStartedEvent[source=org.springframework.boot.SpringApplication@4a35486f]<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.boot.context.event.ApplicationStartedEvent<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.boot.context.event.ApplicationStartedEvent[source=org.springframework.boot.SpringApplication@4a35486f]<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.boot.availability.AvailabilityChangeEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.boot.availability.AvailabilityChangeEvent<br>2024-06-24T02:55:59.618+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.boot.availability.AvailabilityChangeEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br>2024-06-24T02:55:59.619+08:00  INFO 1364008 --- [  restartedMain] c.example.springdemo.runner.GammaRunner  : GammaRunner with highest precedence invoked<br>2024-06-24T02:55:59.619+08:00  INFO 1364008 --- [  restartedMain] c.example.springdemo.runner.AlphaRunner  : AlphaRunner without order annotation invoked<br>2024-06-24T02:55:59.619+08:00  INFO 1364008 --- [  restartedMain] c.example.springdemo.runner.BetaRunner   : BetaRunner without order annotation invoked<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.boot.context.event.ApplicationReadyEvent[source=org.springframework.boot.SpringApplication@4a35486f]<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.boot.context.event.ApplicationReadyEvent<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.boot.context.event.ApplicationReadyEvent[source=org.springframework.boot.SpringApplication@4a35486f]<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.GoodListener     : GoodListener event receive event: org.springframework.boot.availability.AvailabilityChangeEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.DemoListener     : Application event received: org.springframework.boot.availability.AvailabilityChangeEvent<br>2024-06-24T02:55:59.620+08:00  INFO 1364008 --- [  restartedMain] c.e.springdemo.listener.EmoListener      : EmoListener event receive event: org.springframework.boot.availability.AvailabilityChangeEvent[source=org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@630d7a02, started on Mon Jun 24 02:55:58 CST 2024]<br><br></code></pre></td></tr></table></figure>
+
+<p>Spring的启动日志中，总共出现了：</p>
+<ul>
+<li>MyInitializer</li>
+<li>MyAppAutoConfiguration</li>
+<li>DemoListener</li>
+<li>EmoListener</li>
+<li>GoodListener</li>
+<li>AlphaRunner</li>
+<li>BetaRunner</li>
+<li>GammaRunner</li>
+</ul>
+<p>共计8个自定义类，分属四种拓展形式。我们可以看到，它们的输出有特定顺序，并且可以人为调整。接下来，让我们阅读SPringbootApplication.run()方法的源码，了解Springboot是如何启动应用的。</p>
+<h3 id="第一步-SpringbootApplication-run"><a href="#第一步-SpringbootApplication-run" class="headerlink" title="第一步 SpringbootApplication.run()"></a>第一步 SpringbootApplication.run()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpringDemoApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(SpringDemoApplication.class, args);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当我们执行上面这样的代码时，spring完成了两件工作：</p>
+<ol>
+<li>创建<code>SpringApplication</code>实例</li>
+<li>执行<code>SpringApplication</code>的run方法</li>
+</ol>
+<h4 id="创建SpringBootApplication实例"><a href="#创建SpringBootApplication实例" class="headerlink" title="创建SpringBootApplication实例"></a>创建<code>SpringBootApplication</code>实例</h4><figure class="highlight java"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// org.springframework.boot.SpringApplication</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Create a new &#123;<span class="hljs-doctag">@link</span> SpringApplication&#125; instance. The application context will load</span><br><span class="hljs-comment"> * beans from the specified primary sources (see &#123;<span class="hljs-doctag">@link</span> SpringApplication class-level&#125;</span><br><span class="hljs-comment"> * documentation for details). The instance can be customized before calling</span><br><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> #run(String...)&#125;.</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> resourceLoader the resource loader to use</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> primarySources the primary bean sources</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> #run(Class, String[])</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@see</span> #setSources(Set)</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@SuppressWarnings(&#123; &quot;unchecked&quot;, &quot;rawtypes&quot; &#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">SpringApplication</span><span class="hljs-params">(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources)</span> &#123;<br>    <span class="hljs-built_in">this</span>.resourceLoader = resourceLoader;<br>    Assert.notNull(primarySources, <span class="hljs-string">&quot;PrimarySources must not be null&quot;</span>);<br>    <span class="hljs-built_in">this</span>.primarySources = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>&lt;&gt;(Arrays.asList(primarySources));<br>    <span class="hljs-built_in">this</span>.webApplicationType = WebApplicationType.deduceFromClasspath();<br>    <span class="hljs-built_in">this</span>.bootstrapRegistryInitializers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(<br>            getSpringFactoriesInstances(BootstrapRegistryInitializer.class));<br>    setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));<br>    setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));<br>    <span class="hljs-built_in">this</span>.mainApplicationClass = deduceMainApplicationClass();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里创建了一个SpringApplication实例，<code>resourceLoader</code>为null，<code>primarySources</code>是我们的启动类<code>SpringDemoApplication.class</code>。先通过<code>WebApplicationType.deduceFromClasspath()</code>判断应用类型；然后通过<code>getSpringFactoriesInstances()</code>访问*.factories文件，以类似SPI加载的方式获取服务配置；最终完成SpringApplication实例的初始化工作。</p>
+<h4 id="执行SpringApplication的run方法"><a href="#执行SpringApplication的run方法" class="headerlink" title="执行SpringApplication的run方法"></a>执行SpringApplication的run方法</h4><figure class="highlight java"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Run the Spring application, creating and refreshing a new</span><br><span class="hljs-comment"> * &#123;<span class="hljs-doctag">@link</span> ApplicationContext&#125;.</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> args the application arguments (usually passed from a Java main method)</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> a running &#123;<span class="hljs-doctag">@link</span> ApplicationContext&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> ConfigurableApplicationContext <span class="hljs-title function_">run</span><span class="hljs-params">(String... args)</span> &#123;<br>  <span class="hljs-type">Startup</span> <span class="hljs-variable">startup</span> <span class="hljs-operator">=</span> Startup.create();<br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.registerShutdownHook) &#123;<br>    SpringApplication.shutdownHook.enableShutdownHookAddition();<br>  &#125;<br>  <span class="hljs-type">DefaultBootstrapContext</span> <span class="hljs-variable">bootstrapContext</span> <span class="hljs-operator">=</span> createBootstrapContext();<br>  <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>  configureHeadlessProperty();<br>  <span class="hljs-type">SpringApplicationRunListeners</span> <span class="hljs-variable">listeners</span> <span class="hljs-operator">=</span> getRunListeners(args);<br>  listeners.starting(bootstrapContext, <span class="hljs-built_in">this</span>.mainApplicationClass);<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-type">ApplicationArguments</span> <span class="hljs-variable">applicationArguments</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultApplicationArguments</span>(args);<br>    <span class="hljs-type">ConfigurableEnvironment</span> <span class="hljs-variable">environment</span> <span class="hljs-operator">=</span> prepareEnvironment(listeners, bootstrapContext, applicationArguments);<br>    <span class="hljs-type">Banner</span> <span class="hljs-variable">printedBanner</span> <span class="hljs-operator">=</span> printBanner(environment);<br>    context = createApplicationContext();<br>    context.setApplicationStartup(<span class="hljs-built_in">this</span>.applicationStartup);<br>    prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);<br>    refreshContext(context);<br>    afterRefresh(context, applicationArguments);<br>    startup.started();<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.logStartupInfo) &#123;<br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">StartupInfoLogger</span>(<span class="hljs-built_in">this</span>.mainApplicationClass).logStarted(getApplicationLog(), startup);<br>    &#125;<br>    listeners.started(context, startup.timeTakenToStarted());<br>    callRunners(context, applicationArguments);<br>  &#125;<br>  <span class="hljs-keyword">catch</span> (Throwable ex) &#123;<br>    <span class="hljs-keyword">if</span> (ex <span class="hljs-keyword">instanceof</span> AbandonedRunException) &#123;<br>      <span class="hljs-keyword">throw</span> ex;<br>    &#125;<br>    handleRunFailure(context, ex, listeners);<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(ex);<br>  &#125;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">if</span> (context.isRunning()) &#123;<br>      listeners.ready(context, startup.ready());<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">catch</span> (Throwable ex) &#123;<br>    <span class="hljs-keyword">if</span> (ex <span class="hljs-keyword">instanceof</span> AbandonedRunException) &#123;<br>      <span class="hljs-keyword">throw</span> ex;<br>    &#125;<br>    handleRunFailure(context, ex, <span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(ex);<br>  &#125;<br>  <span class="hljs-keyword">return</span> context;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>run方法的流程可以拆分为以下三个主要阶段：</p>
+<ol>
+<li>准备阶段</li>
+<li>启动阶段</li>
+<li>善后阶段</li>
+</ol>
+<h5 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h5><p>准备阶段对应下面的日志</p>
+<figure class="highlight plaintext"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs log">02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer<br>02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer<br></code></pre></td></tr></table></figure>
+
+<p>首先，通过Startup.create()方法创建一个启动状态标志对象，Startup，标志着开始启动流程。<br>然后，视情况注册关闭时生命周期函数；<br>再然后，调用createBootstrapContext()方法创建启动上下文对象。</p>
+<h5 id="启动阶段"><a href="#启动阶段" class="headerlink" title="启动阶段"></a>启动阶段</h5><h5 id="善后阶段"><a href="#善后阶段" class="headerlink" title="善后阶段"></a>善后阶段</h5><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="/img/spring-boot-start.jpg" srcset="/img/loading.gif" lazyload alt="启动流程图"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">#源码分析</a>
+      
+        <a href="/tags/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%AF%87/">#每周一篇</a>
+      
+        <a href="/tags/spring-boot/">#spring boot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring boot启动过程分析</div>
+      <div>http://firestige.xyz/2024/deep-in-spring-boot-start-b6d8b6dc205b/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>firestige</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/desgin-patterns-2-0ef8b8c69eeb/" title="设计模式——策略模式">
+                        <span class="hidden-mobile">设计模式——策略模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div style="display: flex;justify-content: center;height: 20px"><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2023020053号-1</a></div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
