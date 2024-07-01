@@ -123,8 +123,88 @@ public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySourc
 }
 ```
 
-这里创建了一个SpringApplication实例，`resourceLoader`为null，`primarySources`是我们的启动类`SpringDemoApplication.class`
+这里创建了一个SpringApplication实例，`resourceLoader`为null，`primarySources`是我们的启动类`SpringDemoApplication.class`。先通过`WebApplicationType.deduceFromClasspath()`判断应用类型；然后通过`getSpringFactoriesInstances()`访问\*.factories文件，以类似SPI加载的方式获取服务配置；最终完成SpringApplication实例的初始化工作。
 
+#### 执行SpringApplication的run方法
+
+```java {.line-numbers}
+/**
+ * Run the Spring application, creating and refreshing a new
+ * {@link ApplicationContext}.
+ * @param args the application arguments (usually passed from a Java main method)
+ * @return a running {@link ApplicationContext}
+ */
+public ConfigurableApplicationContext run(String... args) {
+  Startup startup = Startup.create();
+  if (this.registerShutdownHook) {
+    SpringApplication.shutdownHook.enableShutdownHookAddition();
+  }
+  DefaultBootstrapContext bootstrapContext = createBootstrapContext();
+  ConfigurableApplicationContext context = null;
+  configureHeadlessProperty();
+  SpringApplicationRunListeners listeners = getRunListeners(args);
+  listeners.starting(bootstrapContext, this.mainApplicationClass);
+  try {
+    ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+    ConfigurableEnvironment environment = prepareEnvironment(listeners, bootstrapContext, applicationArguments);
+    Banner printedBanner = printBanner(environment);
+    context = createApplicationContext();
+    context.setApplicationStartup(this.applicationStartup);
+    prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);
+    refreshContext(context);
+    afterRefresh(context, applicationArguments);
+    startup.started();
+    if (this.logStartupInfo) {
+      new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), startup);
+    }
+    listeners.started(context, startup.timeTakenToStarted());
+    callRunners(context, applicationArguments);
+  }
+  catch (Throwable ex) {
+    if (ex instanceof AbandonedRunException) {
+      throw ex;
+    }
+    handleRunFailure(context, ex, listeners);
+    throw new IllegalStateException(ex);
+  }
+  try {
+    if (context.isRunning()) {
+      listeners.ready(context, startup.ready());
+    }
+  }
+  catch (Throwable ex) {
+    if (ex instanceof AbandonedRunException) {
+      throw ex;
+    }
+    handleRunFailure(context, ex, null);
+    throw new IllegalStateException(ex);
+  }
+  return context;
+}
+```
+
+run方法的流程可以拆分为以下三个主要阶段：
+
+1. 准备阶段
+2. 启动阶段
+3. 善后阶段
+
+##### 准备阶段
+
+准备阶段对应下面的日志
+
+```log {.line-numbers}
+02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
+02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
+```
+
+首先，通过Startup.create()方法创建一个启动状态标志对象，Startup，标志着开始启动流程。
+然后，视情况注册关闭时生命周期函数；
+再然后，调用createBootstrapContext()方法创建启动上下文对象。
+
+##### 启动阶段
+
+##### 善后阶段
 
 
 ### 总结
