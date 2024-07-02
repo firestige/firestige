@@ -191,16 +191,149 @@ run方法的流程可以拆分为以下三个主要阶段：
 
 ##### 准备阶段
 
-准备阶段对应下面的日志
+```java
+Startup startup = Startup.create();
+if (this.registerShutdownHook) {
+  SpringApplication.shutdownHook.enableShutdownHookAddition();
+}
+DefaultBootstrapContext bootstrapContext = createBootstrapContext();
+ConfigurableApplicationContext context = null;
+configureHeadlessProperty();
+SpringApplicationRunListeners listeners = getRunListeners(args);
+listeners.starting(bootstrapContext, this.mainApplicationClass);
+```
+
+准备阶段按顺序完成以下工作：
+
+1. 调用Startup.create()创建启动标志
+2. 如果有注册关闭事件的生命周期钩子，开启对应的生命周期钩子
+3. 创建启动上下文
+4. 配置无头模式
+5. 获取监听器
+6. 发布启动事件
+
+其中，下面的日志发生在第三步，创建启动上下文时。
 
 ```log {.line-numbers}
 02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
 02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
 ```
 
-首先，通过Startup.create()方法创建一个启动状态标志对象，Startup，标志着开始启动流程。
-然后，视情况注册关闭时生命周期函数；
-再然后，调用createBootstrapContext()方法创建启动上下文对象。
+```java
+private DefaultBootstrapContext createBootstrapContext() {
+  DefaultBootstrapContext bootstrapContext = new DefaultBootstrapContext();
+  this.bootstrapRegistryInitializers.forEach((initializer) -> initializer.initialize(bootstrapContext));
+  return bootstrapContext;
+}
+
+@Slf4j
+public class MyInitializer implements BootstrapRegistryInitializer {
+    @Override
+    public void initialize(BootstrapRegistry registry) {
+        log.info("Initializing MyInitializer");
+    }
+}
+```
+
+当调用forEach方法挨个执行从spring.factories中读取的`BootstrapRegistryInitializer`接口的实现类时，便会调用initialize接口，本例中仅输出一条日志。
+
+第5步获取监听器配置是一个重要的拓展模式。请注意`SpringApplicationRunListener`的定义：
+
+```java
+/**
+ * Listener for the {@link SpringApplication} {@code run} method.
+ * {@link SpringApplicationRunListener}s are loaded through the
+ * {@link SpringFactoriesLoader} and should declare a public constructor that accepts a
+ * {@link SpringApplication} instance and a {@code String[]} of arguments. A new
+ * {@link SpringApplicationRunListener} instance will be created for each run.
+ *
+ * @author Phillip Webb
+ * @author Dave Syer
+ * @author Andy Wilkinson
+ * @author Chris Bono
+ * @since 1.0.0
+ */
+public interface SpringApplicationRunListener {
+
+	/**
+	 * Called immediately when the run method has first started. Can be used for very
+	 * early initialization.
+	 * @param bootstrapContext the bootstrap context
+	 */
+	default void starting(ConfigurableBootstrapContext bootstrapContext) {
+	}
+
+	/**
+	 * Called once the environment has been prepared, but before the
+	 * {@link ApplicationContext} has been created.
+	 * @param bootstrapContext the bootstrap context
+	 * @param environment the environment
+	 */
+	default void environmentPrepared(ConfigurableBootstrapContext bootstrapContext,
+			ConfigurableEnvironment environment) {
+	}
+
+	/**
+	 * Called once the {@link ApplicationContext} has been created and prepared, but
+	 * before sources have been loaded.
+	 * @param context the application context
+	 */
+	default void contextPrepared(ConfigurableApplicationContext context) {
+	}
+
+	/**
+	 * Called once the application context has been loaded but before it has been
+	 * refreshed.
+	 * @param context the application context
+	 */
+	default void contextLoaded(ConfigurableApplicationContext context) {
+	}
+
+	/**
+	 * The context has been refreshed and the application has started but
+	 * {@link CommandLineRunner CommandLineRunners} and {@link ApplicationRunner
+	 * ApplicationRunners} have not been called.
+	 * @param context the application context.
+	 * @param timeTaken the time taken to start the application or {@code null} if unknown
+	 * @since 2.6.0
+	 */
+	default void started(ConfigurableApplicationContext context, Duration timeTaken) {
+	}
+
+	/**
+	 * Called immediately before the run method finishes, when the application context has
+	 * been refreshed and all {@link CommandLineRunner CommandLineRunners} and
+	 * {@link ApplicationRunner ApplicationRunners} have been called.
+	 * @param context the application context.
+	 * @param timeTaken the time taken for the application to be ready or {@code null} if
+	 * unknown
+	 * @since 2.6.0
+	 */
+	default void ready(ConfigurableApplicationContext context, Duration timeTaken) {
+	}
+
+	/**
+	 * Called when a failure occurs when running the application.
+	 * @param context the application context or {@code null} if a failure occurred before
+	 * the context was created
+	 * @param exception the failure
+	 * @since 2.0.0
+	 */
+	default void failed(ConfigurableApplicationContext context, Throwable exception) {
+	}
+
+}
+```
+
+可以看到，Springboot为上下文设置了七个生命周期状态，即七个拓展点。分别是：
+
+- starting
+- environmentPrepared
+- contextPrepared
+- contextLoaded
+- started
+- ready
+- failed
 
 ##### 启动阶段
 
