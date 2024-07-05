@@ -7,18 +7,17 @@ tag:
   - 源码分析
   - spring boot
 ---
-## Spring boot启动过程分析
 
 调用SpringbootApplication.run()之后到底发生了什么？
 Spring是如何启动应用的？
 拓展点有很多，我该选谁？
 过程中有哪些设计可以借鉴？
 
-### 观察现象
+## 1. 观察现象
 
 让我们看一段Spring Boot应用启动日志
 
-```log {.line-numbers}
+```log
 
 02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
 02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
@@ -76,7 +75,7 @@ Spring的启动日志中，总共出现了：
 
 共计8个自定义类，分属四种拓展形式。我们可以看到，它们的输出有特定顺序，并且可以人为调整。接下来，让我们阅读SPringbootApplication.run()方法的源码，了解Springboot是如何启动应用的。
 
-### 第一步 SpringbootApplication.run()
+## 2. 第一步 SpringbootApplication.run()
 
 ```java
 @SpringBootApplication
@@ -94,9 +93,9 @@ public class SpringDemoApplication {
 1. 创建`SpringApplication`实例
 2. 执行`SpringApplication`的run方法
 
-#### 创建`SpringBootApplication`实例
+### 2.1. 创建`SpringBootApplication`实例
 
-```java {.line-numbers}
+```java
 // org.springframework.boot.SpringApplication
 
 /**
@@ -125,9 +124,9 @@ public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySourc
 
 这里创建了一个SpringApplication实例，`resourceLoader`为null，`primarySources`是我们的启动类`SpringDemoApplication.class`。先通过`WebApplicationType.deduceFromClasspath()`判断应用类型；然后通过`getSpringFactoriesInstances()`访问\*.factories文件，以类似SPI加载的方式获取服务配置；最终完成SpringApplication实例的初始化工作。
 
-#### 执行SpringApplication的run方法
+### 2.2. 执行SpringApplication的run方法
 
-```java {.line-numbers}
+```java
 /**
  * Run the Spring application, creating and refreshing a new
  * {@link ApplicationContext}.
@@ -189,7 +188,7 @@ run方法的流程可以拆分为以下三个主要阶段：
 2. 启动阶段
 3. 善后阶段
 
-##### 准备阶段
+#### 2.2.1. 准备阶段
 
 ```java
 Startup startup = Startup.create();
@@ -214,7 +213,7 @@ listeners.starting(bootstrapContext, this.mainApplicationClass);
 
 其中，下面的日志发生在第三步，创建启动上下文时。
 
-```log {.line-numbers}
+```log
 02:55:58.664 [main] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
 02:55:58.705 [restartedMain] INFO com.example.springdemo.initializer.MyInitializer -- Initializing MyInitializer
 ```
@@ -327,7 +326,7 @@ public interface SpringApplicationRunListener {
 
 可以看到，Springboot为上下文设置了七个生命周期状态，即七个拓展点。分别是：
 
-- starting
+- starting——在run方法启动时触发，可以用于执行非常早期的初始化动作。通过run方法的源码可以知道，该钩子在创建好启动上下文（`DefaultBootstrapContext`）即被调用
 - environmentPrepared
 - contextPrepared
 - contextLoaded
@@ -335,11 +334,39 @@ public interface SpringApplicationRunListener {
 - ready
 - failed
 
-##### 启动阶段
+我们可以通过实现SpringApplicationRunListener接口并利用spring.factories将实现类植入spring中，用于在正确的生命周期钩子处完成目标工作。作为举例我们可以观察其中一个实现类`org.springframework.boot.context.event.EventPublishingRunListener`，正是这个类实现了将上下文钩子事件广播出去的需求。
 
-##### 善后阶段
+#### 2.2.2. 启动阶段
+
+```java
+ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+ConfigurableEnvironment environment = prepareEnvironment(listeners, bootstrapContext, applicationArguments);
+Banner printedBanner = printBanner(environment);
+context = createApplicationContext();
+context.setApplicationStartup(this.applicationStartup);
+prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);
+refreshContext(context);
+afterRefresh(context, applicationArguments);
+startup.started();
+if (this.logStartupInfo) {
+  new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), startup);
+}
+listeners.started(context, startup.timeTakenToStarted());
+callRunners(context, applicationArguments);
+```
+
+正式的应用上下文（区别于启动上下文）是在上述代码中创建并且配置的。大致步骤如下:
+
+1. 准备环境参数
+2. 创建应用上下文
+3. 准备应用上下文
+4. 刷新应用上下文
+5. 调用生命周期函数
+6. 调用Runner
+
+#### 2.2.3. 善后阶段
 
 
-### 总结
+## 3. 总结
 
 ![启动流程图](/img/spring-boot-start.jpg)
