@@ -339,19 +339,25 @@ public interface SpringApplicationRunListener {
 #### 2.2.2. 启动阶段
 
 ```java
+//1. 准备环境参数
 ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
 ConfigurableEnvironment environment = prepareEnvironment(listeners, bootstrapContext, applicationArguments);
 Banner printedBanner = printBanner(environment);
+//2. 创建应用上下文
 context = createApplicationContext();
 context.setApplicationStartup(this.applicationStartup);
+//3. 准备应用上下文
 prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);
+//4. 刷新应用上下文
 refreshContext(context);
 afterRefresh(context, applicationArguments);
 startup.started();
 if (this.logStartupInfo) {
   new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), startup);
 }
+//5. 调用生命周期函数
 listeners.started(context, startup.timeTakenToStarted());
+//6. 调用Runner
 callRunners(context, applicationArguments);
 ```
 
@@ -363,6 +369,104 @@ callRunners(context, applicationArguments);
 4. 刷新应用上下文
 5. 调用生命周期函数
 6. 调用Runner
+
+##### 2.2.2.1. 准备环境参数
+
+这一步以打印标题为结束标志，即我们常说的Banner。
+
+```log
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+```
+
+`ApplicationArguments`对象代表了命令行启动时输入的参数
+
+`ConfigurableEnvironment`对象则表示读取到的环境变量
+
+##### 2.2.2.2. 创建应用上下文
+
+通过调用`ApplicationContextFactory`的抽象工厂方法，实际通过spring.factories委派至对应的工厂实现创建应用上下文。**一般我们在需要创建定制上下文时可以在此处利用spring.factories机制拓展。**
+
+> 本例中，系统委派至`ReactiveWebServerApplicationContextFactory`实现类。注意，spring的两个web实现，`ServletWebServerApplicationContextFactory`和`ReactiveWebServerApplicationContextFactory`都在工厂内实现了aot上下文和非aot上下文的创建。
+
+```java
+	@Override
+	public ConfigurableApplicationContext create(WebApplicationType webApplicationType) {
+		return (webApplicationType != WebApplicationType.REACTIVE) ? null : createContext();
+	}
+
+	private ConfigurableApplicationContext createContext() {
+		if (!AotDetector.useGeneratedArtifacts()) {
+			return new AnnotationConfigReactiveWebServerApplicationContext();
+		}
+		return new ReactiveWebServerApplicationContext();
+	}
+```
+
+##### 2.2.2.3. 准备应用上下文
+
+```java
+	private void prepareContext(DefaultBootstrapContext bootstrapContext, ConfigurableApplicationContext context,
+			ConfigurableEnvironment environment, SpringApplicationRunListeners listeners,
+			ApplicationArguments applicationArguments, Banner printedBanner) {
+		context.setEnvironment(environment);
+		postProcessApplicationContext(context);
+		addAotGeneratedInitializerIfNecessary(this.initializers);
+		applyInitializers(context);
+		listeners.contextPrepared(context);
+		bootstrapContext.close(context);
+		if (this.logStartupInfo) {
+			logStartupInfo(context.getParent() == null);
+			logStartupProfileInfo(context);
+		}
+		// Add boot specific singleton beans
+		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+		beanFactory.registerSingleton("springApplicationArguments", applicationArguments);
+		if (printedBanner != null) {
+			beanFactory.registerSingleton("springBootBanner", printedBanner);
+		}
+		if (beanFactory instanceof AbstractAutowireCapableBeanFactory autowireCapableBeanFactory) {
+			autowireCapableBeanFactory.setAllowCircularReferences(this.allowCircularReferences);
+			if (beanFactory instanceof DefaultListableBeanFactory listableBeanFactory) {
+				listableBeanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
+			}
+		}
+		if (this.lazyInitialization) {
+			context.addBeanFactoryPostProcessor(new LazyInitializationBeanFactoryPostProcessor());
+		}
+		if (this.keepAlive) {
+			KeepAlive keepAlive = new KeepAlive();
+			keepAlive.start();
+			context.addApplicationListener(keepAlive);
+		}
+		context.addBeanFactoryPostProcessor(new PropertySourceOrderingBeanFactoryPostProcessor(context));
+		if (!AotDetector.useGeneratedArtifacts()) {
+			// Load the sources
+			Set<Object> sources = getAllSources();
+			Assert.notEmpty(sources, "Sources must not be empty");
+			load(context, sources.toArray(new Object[0]));
+		}
+		listeners.contextLoaded(context);
+	}
+```
+
+spring在此处完成上下文的初始化工作，诸如：为上下文设置环境变量，初始化Bean工厂的设定，执行`ApplicationContextInitializer`对上下文进行自定义初始化，注册启动参数以及Banner的单例，配置循环引用开关，注册懒加载处理器等等
+
+其中，有如下拓展点可用于定制:
+1. 通过继承SpringApplication类，重写postProcessApplicationContext方法实现上下文的调整。如默认的SpringApplication类在该方法中完成对beanNameGenerator、resourceLoader、conversionService的初始化设定
+2. 实现`ApplicationContextInitializer`，自定义上下文的初始化。ApplicationContextInitializer的实现类需要写在spring.factories中，以便于Spring在启动时可以将其载入SpringApplication类的initializers属性中。当执行至`applyInitializers`方法时，便会遍历`getInitializers`方法返回的列表，逐个调用加载的`ApplicationContextInitializer`实现类完成自定义初始化。需要注意，`getInitializers`方法会根据实现类上的Order注解进行排序。
+
+##### 2.2.2.4. 刷新应用上下文
+
+这一步非常重要，前面的步骤中我们仅完成了上下文的创建，基础参数设置和部分初始化工作，我们书写的bean并没有被注册到上下文中。Spring正是通过refresh操作完成所有自定义bean的注册和启动工作。以webflux的启动为例，这里的调用链有些复杂，请看下图说明：
+
+
+
 
 #### 2.2.3. 善后阶段
 
