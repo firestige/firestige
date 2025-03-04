@@ -16,24 +16,23 @@
   <meta name="author" content="firestige">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件 2. 清晰原则：清晰胜于机巧 3. 组合原则：设计时考虑拼接组合 4. 分离原则：策略同机制分离，接口同引擎分离 5. 简洁原则：设计要简洁">
+    <meta name="description" content="「当你厌倦了在Word里手动调整格式到凌晨三点，当毕业论文的页眉页码像多米诺骨牌一样连环错位，或许该试试这个学术界『隐形规则』——用代码写文档的艺术：LaTeX。」 ​&gt;从第一行\documentclass&amp;#123;article&amp;#125;到生成打印店老板都夸专业的PDF，你会发现：​用纯文本控制每一毫米的页边距，比鼠标拖拽格式高效得多——毕竟，代码不会在你按下回车键时突然把参考文献">
 <meta property="og:type" content="article">
-<meta property="og:title" content="评Unix哲学基础">
-<meta property="og:url" content="http://firestige.xyz/unix-philosophy-e7f3e70abb5a/index.html">
+<meta property="og:title" content="用代码打造精美文档：像Markdown一样简单的LaTeX(一)">
+<meta property="og:url" content="http://firestige.xyz/2025/craft-beautiful-documents-with-code-latex-as-simple-as-markdown-b114c4e8328f/index.html">
 <meta property="og:site_name" content="试替哥的看板墙">
-<meta property="og:description" content="这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。  1. 模块原则：使用简洁的接口拼合简单的部件 2. 清晰原则：清晰胜于机巧 3. 组合原则：设计时考虑拼接组合 4. 分离原则：策略同机制分离，接口同引擎分离 5. 简洁原则：设计要简洁">
+<meta property="og:description" content="「当你厌倦了在Word里手动调整格式到凌晨三点，当毕业论文的页眉页码像多米诺骨牌一样连环错位，或许该试试这个学术界『隐形规则』——用代码写文档的艺术：LaTeX。」 ​&gt;从第一行\documentclass&amp;#123;article&amp;#125;到生成打印店老板都夸专业的PDF，你会发现：​用纯文本控制每一毫米的页边距，比鼠标拖拽格式高效得多——毕竟，代码不会在你按下回车键时突然把参考文献">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-23T16:00:00.000Z">
+<meta property="article:published_time" content="2025-03-04T11:00:00.000Z">
 <meta property="article:modified_time" content="2025-03-04T17:52:55.973Z">
 <meta property="article:author" content="firestige">
-<meta property="article:tag" content="读书笔记">
-<meta property="article:tag" content="程序设计">
-<meta property="article:tag" content="Unix编程艺术">
+<meta property="article:tag" content="latex">
+<meta property="article:tag" content="排版">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>评Unix哲学基础 - 试替哥的看板墙</title>
+  <title>用代码打造精美文档：像Markdown一样简单的LaTeX(一) - 试替哥的看板墙</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -183,7 +182,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="评Unix哲学基础"></span>
+            <span id="subtitle" data-typed-text="为什么选择LaTeX？学术写作的终极武器"></span>
           
         </div>
 
@@ -194,8 +193,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-24 00:00" pubdate>
-          2023年8月24日 凌晨
+        <time datetime="2025-03-04 19:00" pubdate>
+          2025年3月4日 晚上
         </time>
       </span>
     
@@ -206,7 +205,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          470 字
+          2.8k 字
         
       </span>
     
@@ -217,7 +216,7 @@
         
         
         
-          4 分钟
+          24 分钟
         
       </span>
     
@@ -255,31 +254,57 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">评Unix哲学基础</h1>
+            <h1 style="display: none">为什么选择LaTeX？学术写作的终极武器</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>这本书对我而言太厚了，我曾多次翻开这本书并尝试读完它，可没有一次能完整读完。每每读到第三、四部分就意兴阑珊，草草收场，但我非常喜欢第一、二部分。或许是因为oncall太多，这里的每一条原则我都能找到共鸣。。。</p>
+                <hr>
+<blockquote>
+<p><strong>「当你厌倦了在Word里手动调整格式到凌晨三点，当毕业论文的页眉页码像多米诺骨牌一样连环错位，或许该试试这个学术界『隐形规则』——用代码写文档的艺术：LaTeX。」</strong><br>
+​&gt;从第一行<code>\documentclass&#123;article&#125;</code>到生成打印店老板都夸专业的PDF，你会发现：​用纯文本控制每一毫米的页边距，比鼠标拖拽格式高效得多——毕竟，代码不会在你按下回车键时突然把参考文献变成表情符号😉</p>
 </blockquote>
-<h2 id="1-模块原则：使用简洁的接口拼合简单的部件">1. 模块原则：使用简洁的接口拼合简单的部件</h2>
-<h2 id="2-清晰原则：清晰胜于机巧">2. 清晰原则：清晰胜于机巧</h2>
-<h2 id="3-组合原则：设计时考虑拼接组合">3. 组合原则：设计时考虑拼接组合</h2>
-<h2 id="4-分离原则：策略同机制分离，接口同引擎分离">4. 分离原则：策略同机制分离，接口同引擎分离</h2>
-<h2 id="5-简洁原则：设计要简洁，复杂度能低则低">5. 简洁原则：设计要简洁，复杂度能低则低</h2>
-<h2 id="6-吝啬原则：除非却无他法，不要编写庞大的程序">6. 吝啬原则：除非却无他法，不要编写庞大的程序</h2>
-<h2 id="7-透明性原则：设计要可见，以便审查和调试">7. 透明性原则：设计要可见，以便审查和调试</h2>
-<h2 id="8-健壮原则：健壮源于透明与简洁">8. 健壮原则：健壮源于透明与简洁</h2>
-<h2 id="9-表示原则：把知识叠入数据以求逻辑质朴而健壮">9. 表示原则：把知识叠入数据以求逻辑质朴而健壮</h2>
-<h2 id="10-通俗原则：设计接口避免标新立异">10. 通俗原则：设计接口避免标新立异</h2>
-<h2 id="11-缄默原则：如果一个程序没什么好说的，保持沉默">11. 缄默原则：如果一个程序没什么好说的，保持沉默</h2>
-<h2 id="12-补救原则：出现异常时，马上退出并给出足够错误信息">12. 补救原则：出现异常时，马上退出并给出足够错误信息</h2>
-<h2 id="13-经济原则：宁花机器一分，不花程序员一秒">13. 经济原则：宁花机器一分，不花程序员一秒</h2>
-<h2 id="14-生成原则：避免手工hack，尽量编写程序去生成程序">14. 生成原则：避免手工hack，尽量编写程序去生成程序</h2>
-<h2 id="15-优化原则：雕琢前先要有原型，跑之前先学会走">15. 优化原则：雕琢前先要有原型，跑之前先学会走</h2>
-<h2 id="16-多样原则：绝不相信所谓“不二法门”的断言">16. 多样原则：绝不相信所谓“不二法门”的断言</h2>
-<h2 id="17-扩展原则：设计着眼未来，未来总比预想来得快">17. 扩展原则：设计着眼未来，未来总比预想来得快</h2>
+<h2 id="1-为什么选择LaTeX？学术写作的终极武器">1. 为什么选择LaTeX？学术写作的终极武器</h2>
+<h3 id="1-1-学术论文-公文排版的行业标准">1.1. 学术论文/公文排版的行业标准</h3>
+<p>当你在顶级期刊《Nature Physics》的投稿指南中看到&quot;建议使用LaTeX模板&quot;，当IEEE会议论文模板以.tex格式提供，当全球90%的数学、物理领域的学术论文都在使用同一种排版工具——这就是LaTeX在学术界不可撼动的地位。不同于Word这类通用文字处理软件，LaTeX自1985年诞生以来，已成为STEM领域（科学、技术、工程、数学）的黄金排版标准。美国数学学会（AMS）、Elsevier等权威出版机构均提供官方LaTeX模板，中国国标公文模板（GB/T 9704）也有对应的LaTeX实现版本。选择LaTeX，意味着你的文档从诞生之初就具备专业级的基因。</p>
+<h3 id="1-2-手术刀般的精准格式控制">1.2. 手术刀般的精准格式控制</h3>
+<p>想象这样一个场景：你需要调整200页论文的页边距，在Word中需要逐节修改，而LaTeX只需修改一行代码；当导师要求所有图表标题必须采用「图1.」的编号格式，在LaTeX中只需简单修改<code>\renewcommand&#123;\thefigure&#125;&#123;\arabic&#123;figure&#125;.&#125;</code>；当出版社要求正文行距严格控制在1.25倍，LaTeX的setspace宏包能精确到小数点后四位。这种「样式与内容分离」的设计哲学，让你通过定义模板（.cls文件）即可批量控制所有格式元素，彻底告别手工调整字体、间距的噩梦。</p>
+<h3 id="1-3-数学公式与参考文献的天然舞台">1.3. 数学公式与参考文献的天然舞台</h3>
+<p>试比较以下两种公式输入方式：</p>
+<ul>
+<li>
+<p>​<strong>Word</strong>：插入公式→鼠标点击Σ符号→选择分数模板→上下标定位</p>
+</li>
+<li>
+<p>​<strong>LaTeX</strong>：直接输入\frac{d}{dx}\int_{a}^{x} f(t),dt = f(x)</p>
+<blockquote>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><msubsup><mo>∫</mo><mi>a</mi><mi>x</mi></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mtext> </mtext><mi>d</mi><mi>t</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac{d}{dx}\int_{a}^{x} f(t)\,dt = f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.235928em;vertical-align:-0.35582em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop op-symbol small-op" style="margin-right:0.19445em;position:relative;top:-0.0005599999999999772em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8592920000000001em;"><span style="top:-2.34418em;margin-left:-0.19445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span style="top:-3.2579000000000002em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35582em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>
+</blockquote>
+</li>
+</ul>
+<p>LaTeX的数学语法已演变为学术交流的通用语言，AMS提供的amsmath宏包支持多行公式对齐、矩阵排版等复杂场景。在参考文献管理方面，BibTeX/Biber工具链可实现自动化引用，通过.bib文件维护文献库，cite命令自动生成[1]样式的引用标记，参考文献列表的格式变更只需更换bst样式文件——这一切都让Word的「插入尾注」功能显得笨拙而原始。</p>
+<h3 id="1-4-原生支持多人协作的编辑模式">1.4. 原生支持多人协作的编辑模式</h3>
+<h4 id="1-4-1-​实时协作与版本控制融合">1.4.1. ​实时协作与版本控制融合</h4>
+<p>纯文本格式的.tex文件与Git等版本控制系统是天作之合。每次修改都会留下清晰的diff记录：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">- \section&#123;实验方法&#125;</span><br><span class="hljs-addition">+ \section&#123;实验设计与方法&#125;</span><br>  使用\cite&#123;smith2020&#125;提出的...<br><span class="hljs-addition">+ 实验设备包括3台MTS-200型液压伺服机（见图\ref&#123;fig:equipment&#125;）</span><br></code></pre></td></tr></table></figure>
+<p>这种可追溯性在多人协作撰写论文时尤为重要。相比之下，Word的.docx文件本质是压缩包内的二进制文件，版本对比只能依赖「修订模式」，在涉及公式、图表时经常出现格式错乱。</p>
+<h4 id="1-4-2-云端协作平台突破地域限制">1.4.2. 云端协作平台突破地域限制</h4>
+<p>以 Overleaf、FlyLatex 为代表的在线编辑器支持多人实时编辑，所有修改即时同步至云端，并保留完整版本记录。例如在 FlyLatex 中，成员 A 修改公式的同时，成员 B 可调整图表位置，系统自动合并变更并实时渲染 PDF 预览。这类平台还提供评论功能，便于直接在文档中标注讨论。</p>
+<h3 id="1-5-自动化生成与模板化设计">1.5. 自动化生成与模板化设计</h3>
+<h4 id="1-5-1-复杂元素的自动编排​">1.5.1. 复杂元素的自动编排​</h4>
+<p>LaTeX 通过命令自动生成目录、参考文献、图表编号及交叉引用。例如使用<code>\bibliography</code>命令调用 BibTeX 数据库，即可一键生成符合期刊格式的参考文献列表。数学公式的编号与引用也会随内容增减自动更新，避免手动维护错误。</p>
+<h4 id="1-5-2-​模板驱动的格式统一性​">1.5.2. ​模板驱动的格式统一性​</h4>
+<p>期刊/会议提供的 LaTeX 模板（*.cls 文件）内置排版规则，用户只需填充内容即可生成符合出版要求的文档。切换模板时，仅需修改文档类声明（如<code>\documentclass&#123;acmart&#125;</code>），系统自动调整页边距、字体、章节样式等全局格式。这种“内容与样式分离”的设计大幅降低了多人协作中的格式协调成本。</p>
+<h4 id="1-5-3-​宏包扩展实现定制化自动化​">1.5.3. ​宏包扩展实现定制化自动化​</h4>
+<p>通过加载如 algorithm2e（算法排版）、beamer（幻灯片制作）等宏包，用户可用简洁命令生成复杂结构。例如 FlyLatex 内置的代码补全功能，可快速插入预定义的数学符号或图表环境，减少重复编码。团队还可自定义宏命令（如<code>\newcommand&#123;\keyword&#125;[1]&#123;\textbf&#123;1&#125;&#125;</code>），统一术语的高亮格式。</p>
+<h3 id="1-6-开发友好性与生态系统">1.6. 开发友好性与生态系统</h3>
+<h4 id="1-6-1-文本格式的工程化管理​">1.6.1. 文本格式的工程化管理​</h4>
+<p>LaTeX 文件可通过 CI/CD 流水线实现自动化编译与部署。例如将 Overleaf 项目与 GitHub 仓库绑定后，每次提交代码即可触发云端编译，生成 PDF 并推送至指定存储空间。这种特性尤其适合需要频繁迭代的学术论文或技术文档。</p>
+<h4 id="1-6-2-​跨平台协作的无缝衔接​">1.6.2. ​跨平台协作的无缝衔接​</h4>
+<p>LaTeX 支持 Windows、Linux、macOS 全平台，配合 Overleaf Toolkit 的 Docker 本地部署方案，团队可在内网环境中搭建私有协作平台，兼顾数据安全与编辑自由度。FlyLatex 还支持导出 HTML、PDF 等多种格式，便于非 LaTeX 用户查阅成果。</p>
+<h3 id="1-7-十年不衰的跨平台生命力">1.7. 十年不衰的跨平台生命力</h3>
+<p>一个1995年编写的LaTeX文档，今天仍可用现代发行版完美编译。这种长期兼容性源于：① 纯文本格式永不淘汰 ② 语法标准高度稳定。你可以在Windows用TeXworks，在macOS用MacTeX，在Linux用TeX Live，甚至在iPad上使用Overleaf在线编辑——所有平台输出完全一致的PDF。当你的同事还在为Word 2016打不开新版.docx文件抓狂时，你早已通过xelatex命令输出了符合印刷级要求的文档。</p>
+<p>选择LaTeX不是学习一种工具，而是获得学术写作的「超能力」。它或许需要20小时的入门投入，但将为你节省200小时的手动排版时间，并让你的作品从一开始就拥有专业级的「学术颜值」。在接下来的章节中，我们将揭开LaTeX的神秘面纱，带你从零开始构建第一个优雅的学术文档。</p>
 
                 
               </div>
@@ -292,11 +317,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">#读书笔记</a>
+        <a href="/tags/latex/">#latex</a>
       
-        <a href="/tags/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">#程序设计</a>
-      
-        <a href="/tags/Unix%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF/">#Unix编程艺术</a>
+        <a href="/tags/%E6%8E%92%E7%89%88/">#排版</a>
       
     </div>
   
@@ -308,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>评Unix哲学基础</div>
-      <div>http://firestige.xyz/unix-philosophy-e7f3e70abb5a/</div>
+      <div>用代码打造精美文档：像Markdown一样简单的LaTeX(一)</div>
+      <div>http://firestige.xyz/2025/craft-beautiful-documents-with-code-latex-as-simple-as-markdown-b114c4e8328f/</div>
     </div>
     <div class="license-meta">
       
@@ -321,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月24日</div>
+          <div>2025年3月4日</div>
         </div>
       
       
@@ -353,18 +376,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/go-downloader-0-3281461c64fb/" title="从零开始的golang编程（day0）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">从零开始的golang编程（day0）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/remove-redundant-and-compact-string-8589e22d4ce2/" title="移除重复字符串和字符串压缩">
-                        <span class="hidden-mobile">移除重复字符串和字符串压缩</span>
+                      <a href="/2025/how-to-build-high-performance-fifo-queue-6047bd6d72e2/" title="如何实现高性能FIFO队列">
+                        <span class="hidden-mobile">如何实现高性能FIFO队列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
