@@ -1,9 +1,0 @@
-@startuml // How to build a distributed system
-Client -> Leader: 写操作X
-Leader -> Leader: 将X写入本地日志（uncommitted）
-Leader -> Follower: 发送AppendEntries(X)
-Follower -> Follower: 将X写入本地日志
-Follower --> Leader: 返回ACK
-Leader -> Leader: 收到多数ACK后提交X（committed）
-Follower -> Follower: 异步应用X到状态机
-@enduml

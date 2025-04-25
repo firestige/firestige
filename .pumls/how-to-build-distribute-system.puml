@@ -1,0 +1,20 @@
+@startuml // How to build a distributed system
+Client -> Leader: 写操作X
+Leader -> Leader: 将X写入本地日志（uncommitted）
+Leader -> Follower: 发送AppendEntries(X)
+Follower -> Follower: 将X写入本地日志
+Follower --> Leader: 返回ACK
+Leader -> Leader: 收到多数ACK后提交X（committed）
+Follower -> Follower: 异步应用X到状态机
+@enduml
+@startuml //node-state
+
+Follower: 默认状态，\n被动接受Leader的心跳
+Candidate: 发起选举的临时状态，\n向其他节点发送RequestVote RPC
+Leader: 处理客户端请求，\n管理日志复制，\n定期发送心跳维持权威
+
+Follower -> Candidate: 超时未收到心跳\n或者投票请求
+Candidate --> Leader: 选举成功
+Candidate -> Follower: 发送投票请求
+Leader -> Follower: 收到大于当前Term的心跳或者投票请求，\n立即切换为Follower
+@enduml
