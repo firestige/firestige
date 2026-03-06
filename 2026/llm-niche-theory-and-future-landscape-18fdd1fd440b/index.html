@@ -26,24 +26,16 @@
 <meta property="og:site_name" content="试替哥的看板墙">
 <meta property="og:description" content="当 OpenClaw 吞噬着海量 token，当市场不断传出 DeepSeek V4 将成本再压数个台阶时，我们正在见证 LLM 从&quot;军备竞赛&quot;走向&quot;生态分化&quot;的转折点。[1][5][6]   一、引子：一个拼命降价，一个疯狂烧钱 时隔一年，DeepSeek 又闷声送上新的&quot;新年大礼包&quot;。尽管 V4 还没正式露面，各路自媒体已经开始百花">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/deepseek-discussion-trend-v2.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/openclaw-agent-token-discussion-trend-v2.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/llm-api-price.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/llm-price.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/llm-token-consumption.png">
 <meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-architecture.png">
 <meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-propagation-instability.png">
 <meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-propagation-stability.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/echarts-ecology-pyramid.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/echarts-token-economy.png">
-<meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/echarts-tier-comparison.png">
 <meta property="article:published_time" content="2026-03-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-06T10:18:09.030Z">
+<meta property="article:modified_time" content="2026-03-06T13:11:02.869Z">
 <meta property="article:author" content="firestige">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/deepseek-discussion-trend-v2.png">
+<meta name="twitter:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-architecture.png">
   
   
   
@@ -220,7 +212,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -231,7 +223,7 @@
         
         
         
-          90 分钟
+          103 分钟
         
       </span>
     
@@ -279,24 +271,818 @@
 <hr>
 <h2 id="一、引子：一个拼命降价，一个疯狂烧钱">一、引子：一个拼命降价，一个疯狂烧钱</h2>
 <p>时隔一年，DeepSeek 又闷声送上新的&quot;新年大礼包&quot;。尽管 V4 还没正式露面，各路自媒体已经开始百花齐放百家争鸣的架势，但这次争论的焦点不是跑分，而是价格。从年初 mHC 论文悄悄挂上 arXiv，到 FlashMLA 开源，再到 V3.2-Exp 放出实测，所有信号都指向同一个方向：他们不只是在做下一代模型，而是在系统性地把&quot;单位能力成本&quot;往下砸。如果这件事成了，下探的就不只是某一个 API 的价格，而是整条推理经济的成本门槛。<sup>[1]</sup><sup>[3]</sup><sup>[4]</sup><sup>[6]</sup></p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/deepseek-discussion-trend-v2.png" srcset="/img/loading.gif" lazyload alt="DeepSeek discussion trend"></p>
+<div id="echarts-pcywhse2d" style="width:100%;height:320px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-pcywhse2d');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(// ECharts option — DeepSeek Discussion Trend（GDELT，过去 12 个月）
+// 数据快照：2026-03-06（由 generate_intro_evidence_charts_v2.py 生成）
+({
+  "title": {
+    "text": "DeepSeek Discussion Trend（GDELT，过去 12 个月）",
+    "subtext": "数据来源：GDELT，快照日期：2026-03-06",
+    "left": "center",
+    "textStyle": {
+      "fontSize": 14,
+      "fontWeight": "bold",
+      "color": "#1a1a2e"
+    },
+    "subtextStyle": {
+      "fontSize": 11,
+      "color": "#888"
+    }
+  },
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "cross",
+      "label": {
+        "backgroundColor": "#555"
+      }
+    }
+  },
+  "legend": {
+    "data": [
+      "Weekly avg",
+      "3-week MA"
+    ],
+    "top": 55,
+    "right": 20,
+    "textStyle": {
+      "fontSize": 12
+    }
+  },
+  "grid": {
+    "left": 60,
+    "right": 30,
+    "top": 90,
+    "bottom": 50
+  },
+  "xAxis": {
+    "type": "category",
+    "data": [
+      "2025-03-02",
+      "2025-03-09",
+      "2025-03-16",
+      "2025-03-23",
+      "2025-03-30",
+      "2025-04-06",
+      "2025-04-13",
+      "2025-04-20",
+      "2025-04-27",
+      "2025-05-04",
+      "2025-05-11",
+      "2025-05-18",
+      "2025-05-25",
+      "2025-06-01",
+      "2025-06-08",
+      "2025-06-15",
+      "2025-06-22",
+      "2025-06-29",
+      "2025-07-06",
+      "2025-07-13",
+      "2025-07-20",
+      "2025-07-27",
+      "2025-08-03",
+      "2025-08-10",
+      "2025-08-17",
+      "2025-08-24",
+      "2025-08-31",
+      "2025-09-07",
+      "2025-09-14",
+      "2025-09-21",
+      "2025-09-28",
+      "2025-10-05",
+      "2025-10-12",
+      "2025-10-19",
+      "2025-10-26",
+      "2025-11-02",
+      "2025-11-09",
+      "2025-11-16",
+      "2025-11-23",
+      "2025-11-30",
+      "2025-12-07",
+      "2025-12-14",
+      "2025-12-21",
+      "2025-12-28",
+      "2026-01-04",
+      "2026-01-11",
+      "2026-01-18",
+      "2026-01-25",
+      "2026-02-01",
+      "2026-02-08",
+      "2026-02-15",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-08"
+    ],
+    "axisLabel": {
+      "rotate": 30,
+      "fontSize": 10,
+      "color": "#555"
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "boundaryGap": false
+  },
+  "yAxis": {
+    "type": "value",
+    "name": "Volume Intensity",
+    "nameTextStyle": {
+      "color": "#888",
+      "fontSize": 11
+    },
+    "splitLine": {
+      "lineStyle": {
+        "type": "dashed",
+        "color": "#eee"
+      }
+    },
+    "axisLabel": {
+      "color": "#555"
+    }
+  },
+  "series": [
+    {
+      "name": "Weekly avg",
+      "type": "line",
+      "data": [
+        0.044,
+        0.0707,
+        0.0659,
+        0.0539,
+        0.0502,
+        0.0446,
+        0.0359,
+        0.0567,
+        0.0289,
+        0.0321,
+        0.0223,
+        0.0213,
+        0.0284,
+        0.0253,
+        0.015,
+        0.0175,
+        NaN,
+        NaN,
+        0.0208,
+        0.019,
+        0.0274,
+        0.0194,
+        0.0194,
+        0.019,
+        0.0241,
+        0.0151,
+        0.0247,
+        0.0127,
+        0.0104,
+        0.0105,
+        0.01,
+        0.0079,
+        0.0105,
+        0.0083,
+        0.0158,
+        0.0112,
+        0.011,
+        0.0091,
+        0.0095,
+        0.0099,
+        0.0176,
+        0.0201,
+        0.0102,
+        0.0633,
+        0.0209,
+        0.0152,
+        0.0097,
+        0.0117,
+        0.0094,
+        0.011,
+        0.0168,
+        0.0214,
+        0.0173,
+        0.0124
+      ],
+      "smooth": true,
+      "symbol": "none",
+      "lineStyle": {
+        "color": "#dea821",
+        "width": 1.5,
+        "opacity": 0.6
+      },
+      "areaStyle": {
+        "color": "#dea821",
+        "opacity": 0.08
+      }
+    },
+    {
+      "name": "3-week MA",
+      "type": "line",
+      "data": [
+        0.044,
+        0.0574,
+        0.0602,
+        0.0635,
+        0.0566,
+        0.0496,
+        0.0436,
+        0.0457,
+        0.0405,
+        0.0393,
+        0.0278,
+        0.0253,
+        0.024,
+        0.025,
+        0.0229,
+        0.0193,
+        0.0162,
+        0.0175,
+        0.0208,
+        0.0199,
+        0.0224,
+        0.0219,
+        0.0221,
+        0.0193,
+        0.0208,
+        0.0194,
+        0.0213,
+        0.0175,
+        0.0159,
+        0.0112,
+        0.0103,
+        0.0095,
+        0.0095,
+        0.0089,
+        0.0115,
+        0.0118,
+        0.0127,
+        0.0105,
+        0.0099,
+        0.0095,
+        0.0123,
+        0.0159,
+        0.016,
+        0.0312,
+        0.0315,
+        0.0331,
+        0.0153,
+        0.0122,
+        0.0102,
+        0.0107,
+        0.0124,
+        0.0164,
+        0.0185,
+        0.017
+      ],
+      "smooth": true,
+      "symbol": "none",
+      "lineStyle": {
+        "color": "#5094af",
+        "width": 2.5
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>图 1（DeepSeek 讨论度趋势）：基于 GDELT 全网新闻/媒体时间序列（过去 12 个月），可见讨论热度明显抬升。</p>
 </blockquote>
 <p>与此同时，另一股力量正在疯狂吞噬 token：OpenClaw 以及一众 Agent 框架让&quot;AI 当日常助手&quot;从尝鲜变成常态。写代码、排日程、做调研、整理会议纪要、批量处理文档都能做，代价是一次任务动辄烧掉几十万甚至上百万 token。它不是在聊天，而是在把 token 当算力使用，反复调用工具、装载上下文、自我纠错，再来一轮。你盯着账单看的时候会发现，消耗量不是线性增长，而是会随任务复杂度快速爬升。</p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/openclaw-agent-token-discussion-trend-v2.png" srcset="/img/loading.gif" lazyload alt="OpenClaw/Agent token-cost discussion trend"></p>
+<div id="echarts-weru9a3zp" style="width:100%;height:320px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-weru9a3zp');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(// ECharts option — OpenClaw/Agent Token-Cost Discussion Trend（GDELT）
+// 数据快照：2026-03-06（由 generate_intro_evidence_charts_v2.py 生成）
+({
+  "title": {
+    "text": "OpenClaw/Agent Token-Cost Discussion Trend（GDELT）",
+    "subtext": "数据来源：GDELT，快照日期：2026-03-06",
+    "left": "center",
+    "textStyle": {
+      "fontSize": 14,
+      "fontWeight": "bold",
+      "color": "#1a1a2e"
+    },
+    "subtextStyle": {
+      "fontSize": 11,
+      "color": "#888"
+    }
+  },
+  "tooltip": {
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "cross",
+      "label": {
+        "backgroundColor": "#555"
+      }
+    }
+  },
+  "legend": {
+    "data": [
+      "Weekly avg",
+      "3-week MA"
+    ],
+    "top": 55,
+    "right": 20,
+    "textStyle": {
+      "fontSize": 12
+    }
+  },
+  "grid": {
+    "left": 60,
+    "right": 30,
+    "top": 90,
+    "bottom": 50
+  },
+  "xAxis": {
+    "type": "category",
+    "data": [
+      "2025-03-02",
+      "2025-03-09",
+      "2025-03-16",
+      "2025-03-23",
+      "2025-03-30",
+      "2025-04-06",
+      "2025-04-13",
+      "2025-04-20",
+      "2025-04-27",
+      "2025-05-04",
+      "2025-05-11",
+      "2025-05-18",
+      "2025-05-25",
+      "2025-06-01",
+      "2025-06-08",
+      "2025-06-15",
+      "2025-06-22",
+      "2025-06-29",
+      "2025-07-06",
+      "2025-07-13",
+      "2025-07-20",
+      "2025-07-27",
+      "2025-08-03",
+      "2025-08-10",
+      "2025-08-17",
+      "2025-08-24",
+      "2025-08-31",
+      "2025-09-07",
+      "2025-09-14",
+      "2025-09-21",
+      "2025-09-28",
+      "2025-10-05",
+      "2025-10-12",
+      "2025-10-19",
+      "2025-10-26",
+      "2025-11-02",
+      "2025-11-09",
+      "2025-11-16",
+      "2025-11-23",
+      "2025-11-30",
+      "2025-12-07",
+      "2025-12-14",
+      "2025-12-21",
+      "2025-12-28",
+      "2026-01-04",
+      "2026-01-11",
+      "2026-01-18",
+      "2026-01-25",
+      "2026-02-01",
+      "2026-02-08",
+      "2026-02-15",
+      "2026-02-22",
+      "2026-03-01",
+      "2026-03-08"
+    ],
+    "axisLabel": {
+      "rotate": 30,
+      "fontSize": 10,
+      "color": "#555"
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "boundaryGap": false
+  },
+  "yAxis": {
+    "type": "value",
+    "name": "Volume Intensity",
+    "nameTextStyle": {
+      "color": "#888",
+      "fontSize": 11
+    },
+    "splitLine": {
+      "lineStyle": {
+        "type": "dashed",
+        "color": "#eee"
+      }
+    },
+    "axisLabel": {
+      "color": "#555"
+    }
+  },
+  "series": [
+    {
+      "name": "Weekly avg",
+      "type": "line",
+      "data": [
+        0.0019,
+        0.0023,
+        0.003,
+        0.0033,
+        0.0034,
+        0.002,
+        0.0021,
+        0.0036,
+        0.0027,
+        0.0077,
+        0.0031,
+        0.0039,
+        0.0044,
+        0.0031,
+        0.0025,
+        0.0035,
+        NaN,
+        NaN,
+        0.0025,
+        0.0023,
+        0.0035,
+        0.0028,
+        0.0026,
+        0.0036,
+        0.0025,
+        0.0022,
+        0.0014,
+        0.0027,
+        0.0033,
+        0.0028,
+        0.0028,
+        0.0028,
+        0.0037,
+        0.003,
+        0.0021,
+        0.0035,
+        0.0046,
+        0.0037,
+        0.0041,
+        0.003,
+        0.004,
+        0.0032,
+        0.0028,
+        0.0025,
+        0.002,
+        0.0038,
+        0.0038,
+        0.0025,
+        0.0046,
+        0.0077,
+        0.0059,
+        0.0067,
+        0.0381,
+        0.0064
+      ],
+      "smooth": true,
+      "symbol": "none",
+      "lineStyle": {
+        "color": "#2ba193",
+        "width": 1.5,
+        "opacity": 0.6
+      },
+      "areaStyle": {
+        "color": "#2ba193",
+        "opacity": 0.08
+      }
+    },
+    {
+      "name": "3-week MA",
+      "type": "line",
+      "data": [
+        0.0019,
+        0.0021,
+        0.0024,
+        0.0029,
+        0.0032,
+        0.0029,
+        0.0025,
+        0.0026,
+        0.0028,
+        0.0047,
+        0.0045,
+        0.0049,
+        0.0038,
+        0.0038,
+        0.0033,
+        0.0031,
+        0.003,
+        0.0035,
+        0.0025,
+        0.0024,
+        0.0028,
+        0.0029,
+        0.003,
+        0.003,
+        0.0029,
+        0.0028,
+        0.002,
+        0.0021,
+        0.0025,
+        0.0029,
+        0.003,
+        0.0028,
+        0.0031,
+        0.0032,
+        0.003,
+        0.0029,
+        0.0034,
+        0.004,
+        0.0041,
+        0.0036,
+        0.0037,
+        0.0034,
+        0.0033,
+        0.0028,
+        0.0024,
+        0.0028,
+        0.0032,
+        0.0034,
+        0.0036,
+        0.005,
+        0.0061,
+        0.0068,
+        0.0169,
+        0.0171
+      ],
+      "smooth": true,
+      "symbol": "none",
+      "lineStyle": {
+        "color": "#ee7411",
+        "width": 2.5
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>图 2（OpenClaw/Agent token 成本讨论趋势）：基于 GDELT 查询 <code>(&quot;OpenClaw&quot; OR &quot;AI Agent&quot; OR &quot;coding agent&quot;) AND (token OR &quot;token cost&quot; OR billing OR usage OR &quot;context window&quot;)</code>，显示与 token 成本相关的讨论持续存在并阶段性升温。</p>
 </blockquote>
 <p>一个拼了命降成本，一个疯了一样烧 token。巧合吗？还是说，这两股看似矛盾的趋势，其实正在合力把 LLM 行业推向一个全新的分岔口？这篇文章想聊的，就是这个分岔口背后的逻辑。</p>
 <h2 id="二、当下的现实：模型还在卷，账单先吃不消了">二、当下的现实：模型还在卷，账单先吃不消了</h2>
 <p>先看价格。截至 2026 年 3 月，旗舰模型的 API 定价仍然高悬：GPT-5.2 的混合价约 $4.81/百万 token，Claude Opus 4.6 更夸张，达到 $10.00/百万 token；而 DeepSeek V3.2，目前公认的&quot;够用级&quot;开源选手，只要 $0.32/百万 token。换句话说，调一次 Opus 的钱，够你调 31 次 DeepSeek。<sup>[8]</sup><sup>[9]</sup><sup>[10]</sup></p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/llm-api-price.png" srcset="/img/loading.gif" lazyload alt="api 混合价格"></p>
+<div id="echarts-34aleacth" style="width:100%;height:320px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-34aleacth');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(({
+  title: {
+    text: '旗舰模型 API 混合价（$/百万 token，2026-03）',
+    left: 'center',
+    textStyle: { color: '#1a1a2e', fontSize: 16 }
+  },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+  grid: { left: 60, right: 30, bottom: 40, top: 60 },
+  xAxis: {
+    type: 'category',
+    data: ['DeepSeek V3.2', 'Haiku 4.5', 'GPT-5.2', 'Sonnet 4.6', 'Opus 4.6'],
+    axisLabel: { color: '#1a1a2e', fontSize: 12 }
+  },
+  yAxis: {
+    type: 'value',
+    name: '美元 / 百万 token',
+    nameTextStyle: { color: '#1a1a2e' },
+    max: 12,
+    axisLabel: { color: '#1a1a2e' }
+  },
+  series: [
+    {
+      type: 'bar',
+      data: [
+        { value: 0.32, itemStyle: { color: '#2ba193' } },
+        { value: 2.00, itemStyle: { color: '#dea821' } },
+        { value: 4.81, itemStyle: { color: '#ee7411' } },
+        { value: 6.00, itemStyle: { color: '#e0451f' } },
+        { value: 10.00, itemStyle: { color: '#872a12' } }
+      ],
+      barWidth: '50%',
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '${c}',
+        color: '#1a1a2e',
+        fontWeight: 'bold',
+        fontSize: 13
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>数据来源：OpenAI API Pricing<sup>[8]</sup>、Claude Developer Platform<sup>[9]</sup>、DeepSeek API Docs<sup>[10]</sup>，取 3:1 输入输出混合价。</p>
 </blockquote>
 <p>价格差了几十倍，能力差了多少？没有几十倍。Artificial Analysis 排行榜的 Intelligence Index 给出了一个直观的刻度：Opus 4.6 得分 53，GPT-5.2 得分 51，DeepSeek V3.2 得分 42。最强模型比&quot;够用模型&quot;高出大约 20–26%。确实更贵的模型更聪明，但远没有价格暗示的那么大。<sup>[11]</sup></p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/llm-price.png" srcset="/img/loading.gif" lazyload alt="能力每高一档，价格涨多少？"></p>
+<div id="echarts-5xb3rpjn5" style="width:100%;height:380px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-5xb3rpjn5');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(({
+  title: {
+    text: 'Intelligence Index vs 价格：最后 20% 能力的指数定价',
+    left: 'center',
+    textStyle: { color: '#1a1a2e', fontSize: 15 }
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{b}<br/>Intelligence: {c}'
+  },
+  grid: { left: 70, right: 40, bottom: 60, top: 60 },
+  xAxis: {
+    type: 'value',
+    name: 'Intelligence Index',
+    nameLocation: 'middle',
+    nameGap: 35,
+    nameTextStyle: { color: '#1a1a2e', fontSize: 13 },
+    min: 40,
+    max: 55,
+    axisLabel: { color: '#1a1a2e' }
+  },
+  yAxis: {
+    type: 'value',
+    name: '混合价（$/百万 token）',
+    nameTextStyle: { color: '#1a1a2e', fontSize: 13 },
+    max: 12,
+    axisLabel: { color: '#1a1a2e' }
+  },
+  series: [
+    {
+      type: 'scatter',
+      symbolSize: 18,
+      data: [
+        { value: [42, 0.32], name: 'DeepSeek V3.2', itemStyle: { color: '#2ba193' } },
+        { value: [45, 1.35], name: 'Qwen3.5 397B', itemStyle: { color: '#305969' } },
+        { value: [47, 1.20], name: 'Kimi K2.5', itemStyle: { color: '#20796f' } },
+        { value: [50, 1.55], name: 'GLM-5', itemStyle: { color: '#dea821' } },
+        { value: [51, 4.81], name: 'GPT-5.2', itemStyle: { color: '#ee7411' } },
+        { value: [53, 10.00], name: 'Opus 4.6', itemStyle: { color: '#872a12' } }
+      ],
+      label: {
+        show: true,
+        formatter: '{b}',
+        position: 'right',
+        color: '#1a1a2e',
+        fontSize: 11
+      }
+    },
+    {
+      type: 'line',
+      smooth: true,
+      symbol: 'none',
+      lineStyle: { color: '#e63946', width: 2, type: 'dashed' },
+      data: [
+        [42, 0.32],
+        [45, 1.35],
+        [47, 1.20],
+        [50, 1.55],
+        [51, 4.81],
+        [53, 10.00]
+      ],
+      z: 0
+    },
+    {
+      type: 'line',
+      symbol: 'none',
+      lineStyle: { color: '#aaaaaa', width: 1, type: 'dotted' },
+      markArea: {
+        silent: true,
+        itemStyle: { color: 'rgba(224, 69, 31, 0.08)' },
+        data: [[{ xAxis: 50 }, { xAxis: 55 }]]
+      },
+      data: []
+    }
+  ],
+  graphic: [
+    {
+      type: 'text',
+      left: '72%',
+      top: '18%',
+      style: {
+        text: '← 指数起飞区',
+        fill: '#e0451f',
+        fontSize: 13,
+        fontWeight: 'bold'
+      }
+    },
+    {
+      type: 'text',
+      left: '12%',
+      top: '65%',
+      style: {
+        text: '平坦区 →',
+        fill: '#2ba193',
+        fontSize: 13,
+        fontWeight: 'bold'
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>能力只高 20–26%，价格却高 15–31 倍。每一美元在 DeepSeek 上买到的&quot;智力点&quot;，是 GPT-5.2 的 12 倍，是 Opus 的 25 倍。<sup>[11]</sup></p>
 </blockquote>
@@ -311,7 +1097,7 @@
 <li><strong>工具调用</strong>：读文件、写文件、跑命令、搜索代码库；</li>
 <li><strong>自我纠错</strong>：如果上一步出错，回溯上下文重新规划，然后再跑一遍。</li>
 </ol>
-<pre><code class=" mermaid">flowchart LR
+<pre><code class="hljs mermaid">flowchart LR
   A[&quot;👤 用户下发任务&quot;] --&gt; B[&quot;🧠 Agent 解析意图&quot;]
   B --&gt; C[&quot;🔧 工具调用&quot;]
   C --&gt; D[&quot;📖 读取结果&lt;br&gt;装载上下文&quot;]
@@ -322,13 +1108,113 @@
 
   style F fill:#e0451f,color:#fff
   style C fill:#5094af,color:#fff
-  style D fill:#2ba193,color:#fff
-</code></pre>
+  style D fill:#2ba193,color:#fff</code></pre>
 <blockquote>
 <p>每一次循环都在消耗 token，复杂任务可能循环数十次。</p>
 </blockquote>
 <p>为了让你直观感受 Agent 的&quot;胃口&quot;有多大，把三种典型使用模式的 token 消耗放在一起看：</p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/llm-token-consumption.png" srcset="/img/loading.gif" lazyload alt="token 消耗量级"></p>
+<div id="echarts-vmswe5bs7" style="width:100%;height:340px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-vmswe5bs7');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(({
+  title: {
+    text: '三种使用模式的 Token 消耗量级',
+    left: 'center',
+    textStyle: { color: '#1a1a2e', fontSize: 16 }
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'shadow' },
+    formatter: function (params) {
+      var d = params[0];
+      return d.name + '<br/>≈ ' + d.value.toLocaleString() + ' token';
+    }
+  },
+  grid: { left: 80, right: 30, bottom: 50, top: 60 },
+  xAxis: {
+    type: 'category',
+    data: ['普通聊天', 'RAG 问答', 'Agent 编码'],
+    axisLabel: { color: '#1a1a2e', fontSize: 13 }
+  },
+  yAxis: {
+    type: 'log',
+    name: 'Token 消耗（对数刻度）',
+    nameTextStyle: { color: '#1a1a2e', fontSize: 12 },
+    min: 500,
+    max: 2000000,
+    axisLabel: {
+      color: '#1a1a2e',
+      formatter: function (val) {
+        if (val >= 1000000) return (val / 1000000) + 'M';
+        if (val >= 1000) return (val / 1000) + 'K';
+        return val;
+      }
+    }
+  },
+  series: [
+    {
+      type: 'bar',
+      data: [
+        { value: 1000, itemStyle: { color: '#2a9d8f' } },
+        { value: 8000, itemStyle: { color: '#e9c46a' } },
+        { value: 500000, itemStyle: { color: '#e76f51' } }
+      ],
+      barWidth: '45%',
+      label: {
+        show: true,
+        position: 'top',
+        color: '#1a1a2e',
+        fontWeight: 'bold',
+        fontSize: 13,
+        formatter: function (params) {
+          var v = params.value;
+          if (v >= 1000000) return '~' + (v / 1000000) + 'M';
+          if (v >= 1000) return '~' + (v / 1000) + 'K';
+          return '~' + v;
+        }
+      }
+    }
+  ],
+  graphic: [
+    {
+      type: 'text',
+      left: 'center',
+      bottom: 5,
+      style: {
+        text: 'Agent 的单次消耗是普通聊天的 500 倍',
+        fill: '#e76f51',
+        fontSize: 12,
+        fontWeight: 'bold'
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>普通聊天一轮大约消耗 1K token，RAG 问答一次约 5–10K，而一次 Agent 编码任务轻松吃掉 30 万到 100 万 token。Agent 的消耗是聊天的<strong>几百倍</strong>。</p>
 </blockquote>
@@ -371,7 +1257,7 @@
 <h2 id="四、DeepSeek-V4-的启示：成本坍缩才是真正的范式转移">四、DeepSeek V4 的启示：成本坍缩才是真正的范式转移</h2>
 <p>账已经算的很清楚了：Agent 工作流把单次任务的 token 消耗推到高位，模型能力再强，单位能力成本下不来，规模化就会在商业上先撞墙。所以 V4 的故事，重点从来不是下一代能力有多强，而是它有没有把训练和推理成本继续往下压。<sup>[6]</sup></p>
 <p>先看路线图。DeepSeek 从 V2 到 V4，每一代都在围绕&quot;单位能力成本&quot;做系统优化。这不是一次性的工程偶然，而是一条连续迭代、方向高度一致的技术路线：</p>
-<pre><code class=" mermaid">timeline
+<pre><code class="hljs mermaid">timeline
   title DeepSeek 成本优化路线图
   section 架构革新
     V2 (2024-05) : MLA + DeepSeekMoE
@@ -390,8 +1276,7 @@
                    : 复合增益峰值 3000 → 1.6
   section 下一代
     V4 (2026-?) : 成本坍缩的集大成者？
-                 : 训练稳定 + 推理高效 + 能力守底线
-</code></pre>
+                 : 训练稳定 + 推理高效 + 能力守底线</code></pre>
 <p>这件事并非只有传闻。第一层也是最硬的证据，来自跨年发布的 mHC 论文（arXiv:2512.24880）。这篇论文并不以&quot;V4 技术报告&quot;命名，但它直指超大规模训练的核心痛点：HC 在深层复合映射下会出现严重的传播不稳定，文中给出的复合增益峰值接近 3000；而在 mHC 约束下，最大偏离被压到约 1.6。它解决的不是&quot;跑分小优化&quot;，而是&quot;模型能否稳定训练到更大规模&quot;的地基问题。只要地基更稳，训练回滚、无效算力和调参成本都会下降，这正是成本坍缩能发生的前提条件。<sup>[1]</sup> 要理解 mHC 在做什么，先看残差连接的演进。标准残差连接（ResNet 以来的默认范式）只有一条通路；HC 把残差流扩展到多条流并引入可学习映射，增加了拓扑复杂度，但代价是丧失了恒等映射性质；mHC 则在 HC 的基础上，用 Sinkhorn-Knopp 算法把残差映射投影到双随机矩阵流形上，恢复了恒等映射的稳定性：</p>
 <p><img src="/img/2026/llm-niche-theory-and-future-landscape/mhc-architecture.png" srcset="/img/loading.gif" lazyload alt="Residual Connection → HC → mHC 架构演进"></p>
 <blockquote>
@@ -416,7 +1301,174 @@
 <p>OpenClaw 的出现，让这个矛盾有了答案。Agent 工作流一旦铺开，高分模型的优势会被成本乘数整个吃掉。它打开的不是一场更激烈的军备竞赛，而是一个全然不同的赛道。在那个赛道上，贵是包袱，不是实力。</p>
 <p>我们需要一个更好的框架。生态学的<strong>生态位理论</strong>（Hutchinson, 1957）给了一个答案：物种不是在同一条跑道上比赛，而是在不同的成本-能力区间里竞争，谁能以最低的代价填满那个位置，谁就赢了那个层级。自然界里生物量最大的不是狮子，是蚂蚁和浮游生物；决定生态系统繁荣程度的也不是顶层物种有多强，而是每个层级能养活多少物种、服务多少需求。</p>
 <p>这个分层用一张图就能说清楚。生态学的营养级金字塔（Eltonian Pyramid）：越往上，个体能力越强但数量越稀少、成本越高；越往下，单体越弱小但总数量越庞大、成本越低。LLM 市场的成本和调用量分布，和这个结构完全对应：</p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/echarts-ecology-pyramid.png" srcset="/img/loading.gif" lazyload alt="生态位金字塔对照图"></p>
+<div id="echarts-38b56nqkx" style="width:100%;height:500px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-38b56nqkx');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(// ECharts option — 生态位金字塔对照图（等腰三角形）
+// 此文件作为 {% echarts %} 外部文件引用，顶层表达式须求值为 option 对象
+(function() {
+// ─────────────────────────────────────────────
+// 粘贴至 https://echarts.apache.org/examples/en/editor.html
+// 把最后一行 `const option =` 改为 `option =` 后运行
+// 如需调整尺寸，只改下面两行 W / H 即可
+// ─────────────────────────────────────────────
+
+const W = 800;   // 与编辑器画布宽度保持一致
+const H = 500;   // 与编辑器画布高度保持一致
+
+// ── 由 W/H 推导的布局参数（无需手动调整）─────────────────────
+const MARGIN_X = W * 0.05;          // 左右外边距
+const ARROW_W  = W * 0.08;          // 中间箭头区宽度
+const USABLE_W = W - MARGIN_X * 2 - ARROW_W;
+const PYR_W    = USABLE_W * 0.46;   // 单个金字塔底边宽
+const TITLE_H  = H * 0.13;          // 标题区高度
+const PYR_H    = H - TITLE_H - H * 0.06; // 金字塔高度
+const TOP_Y    = TITLE_H;
+const LEFT_CX  = MARGIN_X + PYR_W / 2;
+const RIGHT_CX = W - MARGIN_X - PYR_W / 2;
+const TITLE_Y  = H * 0.04;
+
+// ── 梯形顶点：i=0 顶层（最窄），i=n-1 底层（最宽）────────────
+function trapezoid(cx, n, i) {
+  const t = i / n, b = (i + 1) / n;
+  return [
+    [cx - PYR_W * t / 2, TOP_Y + PYR_H * t],
+    [cx + PYR_W * t / 2, TOP_Y + PYR_H * t],
+    [cx + PYR_W * b / 2, TOP_Y + PYR_H * b],
+    [cx - PYR_W * b / 2, TOP_Y + PYR_H * b]
+  ];
+}
+
+// ── 数据定义 ─────────────────────────────────────────────────
+const naturalLayers = [
+  { color: '#c0392b', lines: ['🦁 顶级捕食者',       '狮子 · 老鹰 · 虎鲸',   '生物量 <1%'] },
+  { color: '#e67e22', lines: ['🐺 基石物种',         '狼 · 海獭 · 蜜蜂',     '移除则系统崩溃'] },
+  { color: '#2ecc71', lines: ['🌱 初级消费者+生产者', '草食动物 · 浮游生物',   '总生物量最大'] },
+  { color: '#795548', lines: ['🍄 分解者',           '真菌 · 细菌 · 蚯蚓',   '维持物质循环'] }
+];
+
+const llmLayers = [
+  { color: '#e0451f', lines: ['🦁 旗舰位', 'Opus 4.6 · GPT-5.2',          '调用占比 ~5%'] },
+  { color: '#ee7411', lines: ['🐺 主力位', 'DeepSeek V4 · Claude Sonnet', '调用占比 ~35%'] },
+  { color: '#2ba193', lines: ['🐜 基座位', '小模型 · 端侧 · 专用微调',     '调用占比 ~60%'] }
+];
+
+// ── 构建金字塔 ────────────────────────────────────────────────
+function buildPyramid(cx, layers) {
+  const n = layers.length;
+  const elems = [];
+
+  layers.forEach(({ color, lines }, i) => {
+    const pts  = trapezoid(cx, n, i);
+    const midY = (pts[0][1] + pts[2][1]) / 2;
+
+    // 该层中点处可用宽度（留 15% 安全边距）
+    const availW = PYR_W * ((i + 0.5) / n) * 0.82;
+    const layerH = PYR_H / n;
+
+    // 字号与可见行数根据可用空间动态决定
+    const fs       = availW < 60 ? 9 : availW < 100 ? 10 : 12;
+    const lineH    = fs + 6;
+    const maxLines = availW < 50 ? 1 : availW < 95 ? 2 : 3;
+    const vis      = lines.slice(0, maxLines);
+
+    // 底部对齐：最后一行的中心落在层底边上方 PAD 处
+    const PAD    = 6;
+    const botY   = pts[2][1] - PAD;           // 层底边 Y（pts[2] = 右下角）
+    const startY = botY - lineH / 2 - (vis.length - 1) * lineH;
+
+    elems.push({
+      type: 'polygon',
+      shape: { points: pts },
+      style: { fill: color, stroke: '#fff', lineWidth: 2 },
+      z: 10
+    });
+
+    vis.forEach((line, li) => {
+      elems.push({
+        type: 'text',
+        x: cx,
+        y: startY + li * lineH,
+        style: {
+          text: line,
+          textAlign: 'center',
+          textVerticalAlign: 'middle',
+          fill: '#fff',
+          fontSize: fs,
+          fontWeight: li === 0 ? 'bold' : 'normal',
+          textShadowBlur: 2,
+          textShadowColor: 'rgba(0,0,0,0.5)'
+        },
+        z: 20
+      });
+    });
+  });
+
+  return elems;
+}
+
+// ── 标题 ──────────────────────────────────────────────────────
+function titleElems(cx, text, sub) {
+  return [
+    {
+      type: 'text', x: cx, y: TITLE_Y,
+      style: { text, textAlign: 'center', fill: '#2c3e50', fontSize: 16, fontWeight: 'bold' },
+      z: 30
+    },
+    {
+      type: 'text', x: cx, y: TITLE_Y + 22,
+      style: { text: sub, textAlign: 'center', fill: '#7f8c8d', fontSize: 12 },
+      z: 30
+    }
+  ];
+}
+
+return {
+  backgroundColor: '#fafafa',
+  graphic: {
+    elements: [
+      ...titleElems(LEFT_CX,  '自然生态营养级', 'Eltonian Pyramid'),
+      ...titleElems(RIGHT_CX, 'LLM 市场生态位', 'LLM Ecosystem'),
+      {
+        type: 'text',
+        x: W / 2,
+        y: TOP_Y + PYR_H / 2,
+        style: { text: '→', textAlign: 'center', textVerticalAlign: 'middle', fill: '#bdc3c7', fontSize: 36 },
+        z: 30
+      },
+      ...buildPyramid(LEFT_CX,  naturalLayers),
+      ...buildPyramid(RIGHT_CX, llmLayers)
+    ]
+  },
+  series: []
+};
+})());
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>左：自然生态营养级，顶级捕食者数量极少但单体最强，中低层物种数量庞大且撑起了生态系统的总体量。右：LLM 市场生态位，旗舰位调用占比约 5%，主力位约 35%，基座位约 60%。关键洞察：决定生态系统繁荣程度的不是顶层有多强，而是中低层能覆盖多少需求。LLM 市场同理：市场规模的天花板是成本，不是能力。只有足够多的任务能被&quot;刚好够用的模型&quot;以可承受的价格处理，这个市场才真正大起来。</p>
 </blockquote>
@@ -433,7 +1485,7 @@
 <p><strong>基座位被调用的频次最高，但单次价值最低，拿掉它们，整个 Agent 系统就堵住了。</strong></p>
 <h3 id="4-按需调用：任务决定层级，成本自然贴地">4. 按需调用：任务决定层级，成本自然贴地</h3>
 <p>理解了三个生态位，下一个问题就变成了：谁来调度它们？答案是 Agent 框架。一个成熟的 Agent 工作流不是只调一个模型，它会根据子任务的复杂度，动态选择不同层级的模型。用一个具体场景来演示。假设你让 Agent 分析一份 50 页的商业合同：</p>
-<pre><code class=" mermaid">flowchart LR
+<pre><code class="hljs mermaid">flowchart LR
   U([&quot;👤 用户\n分析 50 页合同&quot;])
   O([&quot;📤 风险分析报告\n总计 ≈$0.30&quot;])
 
@@ -459,8 +1511,7 @@
 
   style lane1 fill:#ebfaf8,stroke:#2ba193
   style lane2 fill:#fdf1e7,stroke:#ee7411
-  style lane3 fill:#fcece9,stroke:#e0451f
-</code></pre>
+  style lane3 fill:#fcece9,stroke:#e0451f</code></pre>
 <p>这一次任务调了多少次模型？基座模型被调了 50+ 次（路由 + 预处理），主力模型被调了十几次（逐条分析），旗舰模型只被调了 3 次（关键条款把关）。总成本大约 $0.30，如果全程用旗舰，同样的任务大概要花 $5.00。成本只有 1/16，但质量差距可能不到 5%，因为旗舰的&quot;深度推理&quot;能力只被用在了真正需要它的 3 个节点上。</p>
 <p>这就是&quot;按需调用&quot;的力量：不是找一个最好的模型包打天下，而是给每个子任务找那个&quot;刚好够用的模型&quot;，能力不到才升层，够用的地方绝不多花一分钱。这不是妥协，而是把成本压到任务真正需要的水位。</p>
 <h3 id="为什么是三层而不是一层？">为什么是三层而不是一层？</h3>
@@ -469,7 +1520,297 @@
 <p>如果我们的生态位框架成立，那么接下来的问题就不再是&quot;哪个模型会赢&quot;，而是&quot;哪些方向的模型会把各自的生态位撑得更厚&quot;。答案不止一个，正如成熟的自然生态系统不会只进化出一种物种，LLM 市场也会同时催生多个高价值赛道。以下五个方向，是我们认为未来 2–3 年内最值得关注的演化分支。</p>
 <h3 id="6-1-「Token-经济型」模型——Agent-时代的刚需">6.1 「Token 经济型」模型——Agent 时代的刚需</h3>
 <p>第三节算过那笔账：Agent 把单次任务的 token 消耗推到 30–100 万量级，旗舰模型的价格曲线在那个乘法世界里直接变成悬崖。这个现实催生了一条明确的赛道：模型的核心竞争力从&quot;跑分最高&quot;变成了&quot;每美元能买到多少可用智力&quot;。Token 经济型模型不追求在所有 benchmark 上登顶，而是在&quot;够用&quot;的能力基线上，把单位 token 成本压到极致、把并发吞吐拉到最高、把输出稳定性做到可预测。DeepSeek V4 如果沿着第四节描述的路线兑现：稳训练（mHC）+ 高效推理（FlashMLA/DSA）+ 守住能力下限，它大概率会成为这个赛道的标杆。但这条赛道上远不止 DeepSeek 一个选手。下图把 2025 年初（约 7 款）和 2026 年 3 月（22 款）定价 ≤$1.2/M 的模型全部放在同一个坐标系里：</p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/echarts-token-economy.png" srcset="/img/loading.gif" lazyload alt="Token 经济型模型版图"></p>
+<div id="echarts-1kr8re0dj" style="width:100%;height:560px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-1kr8re0dj');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(// 此文件作为 {% echarts %} 外部文件引用，顶层表达式须求值为 option 对象
+(function() {
+/*
+ * Token 经济型模型版图：2025 vs 2026
+ * 左：散点图（Intelligence Index vs 混合价），透明色=2025，实色=2026
+ * 右：双层环图（内圈=2025，外圈=2026），各价格区间模型数量占比
+ *
+ * 使用方式：粘贴至 https://echarts.apache.org/examples/en/editor.html
+ * 将 const option = 改为 option =
+ */
+
+const COLORS = {
+  us2025:  'rgba(48,89,105,0.28)',
+  cn2025:  'rgba(180,55,24,0.28)',
+  eu2025:  'rgba(32,121,111,0.28)',
+  us2026:  '#305969',
+  cn2026:  '#b43718',
+  eu2026:  '#20796f',
+};
+
+const BORDER = {
+  us2025:  'rgba(48,89,105,0.50)',
+  cn2025:  'rgba(180,55,24,0.50)',
+  eu2025:  'rgba(32,121,111,0.50)',
+};
+
+//  散点数据格式：[Intelligence Index, 混合价($/M), 模型名]
+const scatter2025 = {
+  us: [
+    [35, 0.30, 'GPT-4o mini'],
+    [28, 0.38, 'Claude 3 Haiku'],
+    [28, 0.12, 'Llama 3.1 70B (API)'],
+    [26, 0.30, 'Mistral Small 3'],
+    [30, 0.15, 'Gemini 1.5 Flash'],
+  ],
+  cn: [
+    [38, 0.14, 'DeepSeek V3'],
+    [35, 0.50, 'Qwen2.5 72B'],
+  ],
+  eu: [],   // 2025 年 EU/其他尚无典型选手
+};
+
+const scatter2026 = {
+  us: [
+    [46, 1.13, 'Gemini 3 Flash'],
+    [41, 0.69, 'GPT-5 mini (high)'],
+    [39, 0.28, 'Grok 4.1 Fast'],
+    [33, 0.26, 'gpt-oss-120B'],
+    [20, 0.30, 'NVIDIA Nemotron Mini'],
+    [20, 0.24, 'Amazon Nova Lite'],
+    [17, 0.14, 'Olmo 3 7B Think'],
+    [16, 0.88, 'R1 Distill Llama 70B'],
+    [14, 0.10, 'IBM Granite 4.0 8B'],
+    [ 8, 0.03, 'Gemma 3n E4B'],
+    [ 7, 0.05, 'Liquid LFM2 24B'],
+  ],
+  cn: [
+    [42, 0.32, 'DeepSeek V3.2'],
+    [42, 0.53, 'MiniMax-M2.5'],
+    [42, 0.82, 'Qwen3.5 27B'],
+    [41, 0.15, 'MiMo-V2-Flash'],
+    [37, 0.69, 'Qwen3.5 35B A3B'],
+    [36, 0.53, 'KAT-Coder-Pro V1'],
+    [30, 0.15, 'GLM-4.7-Flash'],
+    [24, 0.12, 'Baidu ERNIE Speed'],
+    [22, 0.20, 'ByteDance Seed-Lite'],
+  ],
+  eu: [
+    [33, 0.38, 'Mercury 2 (Inception)'],
+    [19, 0.25, 'Mistral Small 3.2'],
+  ],
+};
+
+// 价格区间分段统计（款数）
+function bucketCount(data, ranges) {
+  const all = [...data.us, ...data.cn, ...data.eu];
+  return ranges.map(([lo, hi]) => all.filter(d => d[1] > lo && d[1] <= hi).length);
+}
+
+const ranges = [
+  [-0.001, 0.05],   // ≤ $0.05
+  [0.05,   0.20],   // $0.05–$0.20
+  [0.20,   0.50],   // $0.20–$0.50
+  [0.50,   1.00],   // $0.50–$1.00
+  [1.00,   9.99],   // > $1.00
+];
+
+const bucketLabels = ['≤$0.05', '$0.05–$0.20', '$0.20–$0.50', '$0.50–$1.00', '>$1.00'];
+const bucketColors = ['#2ba193','#36c9b8','#dea821','#ee7411','#e0451f'];
+const bucketColorsDim = ['rgba(43,161,147,0.38)','rgba(54,201,184,0.38)','rgba(222,168,33,0.38)','rgba(238,116,17,0.38)','rgba(224,69,31,0.38)'];
+
+const cnt2025 = bucketCount(scatter2025, ranges);
+const cnt2026 = bucketCount(scatter2026, ranges);
+
+const pie2025 = bucketLabels.map((name, i) => ({
+  name,
+  value: cnt2025[i],
+  itemStyle: { color: bucketColorsDim[i], borderColor: '#fff', borderWidth: 1 },
+  label: { show: cnt2025[i] > 0 },
+}));
+
+const pie2026 = bucketLabels.map((name, i) => ({
+  name,
+  value: cnt2026[i],
+  itemStyle: { color: bucketColors[i], borderColor: '#fff', borderWidth: 1.5 },
+}));
+
+return {
+  backgroundColor: '#ffffff',
+  title: [
+    {
+      text: 'Token 经济型模型版图  2025 → 2026',
+      subtext: '气泡 = 模型；透明色 = 2025；实色 = 2026；颜色区分地区',
+      left: '30%',
+      textAlign: 'center',
+      top: 10,
+      textStyle: { fontSize: 14, fontWeight: 'bold', color: '#222' },
+      subtextStyle: { fontSize: 11, color: '#666' },
+    },
+    {
+      text: '价格区间分布',
+      subtext: '内圈 2025（7 款）  外圈 2026（22 款）',
+      left: '78%',
+      textAlign: 'center',
+      top: 10,
+      textStyle: { fontSize: 14, fontWeight: 'bold', color: '#222' },
+      subtextStyle: { fontSize: 11, color: '#666' },
+    },
+  ],
+  legend: [
+    {
+      data: [
+        { name: '2025·美国', icon: 'circle', itemStyle: { color: COLORS.us2025, borderColor: BORDER.us2025, borderWidth: 2 } },
+        { name: '2025·中国', icon: 'circle', itemStyle: { color: COLORS.cn2025, borderColor: BORDER.cn2025, borderWidth: 2 } },
+        { name: '2026·美国', icon: 'circle', itemStyle: { color: COLORS.us2026 } },
+        { name: '2026·中国', icon: 'circle', itemStyle: { color: COLORS.cn2026 } },
+        { name: '2026·欧洲/其他', icon: 'circle', itemStyle: { color: COLORS.eu2026 } },
+      ],
+      top: 56,
+      left: '1%',
+      orient: 'vertical',
+      itemWidth: 10,
+      itemHeight: 10,
+      textStyle: { fontSize: 10.5, color: '#444' },
+    },
+  ],
+  tooltip: {
+    trigger: 'item',
+    formatter: function (params) {
+      if (params.seriesType === 'scatter') {
+        const [idx, price, name] = params.data;
+        return `<b>${name}</b><br/>Intelligence Index: <b>${idx}</b><br/>混合价: <b>$${price}/M</b>`;
+      }
+      // pie
+      return `${params.marker}${params.name}：<b>${params.value} 款</b>（${params.percent}%）`;
+    },
+  },
+  grid: {
+    left: '19%',
+    right: '46%',
+    top: 100,
+    bottom: 58,
+  },
+  xAxis: {
+    type: 'value',
+    name: 'Intelligence Index',
+    nameLocation: 'middle',
+    nameGap: 28,
+    min: 0,
+    max: 55,
+    splitLine: { lineStyle: { type: 'dashed', color: '#eee' } },
+    axisLine: { lineStyle: { color: '#ccc' } },
+    axisTick: { lineStyle: { color: '#ccc' } },
+    axisLabel: { color: '#555' },
+  },
+  yAxis: {
+    type: 'value',
+    name: '混合价（$/M token）',
+    nameLocation: 'middle',
+    nameGap: 46,
+    min: 0,
+    max: 1.25,
+    splitLine: { lineStyle: { type: 'dashed', color: '#eee' } },
+    axisLine: { lineStyle: { color: '#ccc' } },
+    axisTick: { lineStyle: { color: '#ccc' } },
+    axisLabel: { color: '#555', formatter: v => `$${v.toFixed(2)}` },
+  },
+  series: [
+    // ── 2025 散点 ──
+    {
+      name: '2025·美国',
+      type: 'scatter',
+      symbolSize: 13,
+      itemStyle: { color: COLORS.us2025, borderColor: BORDER.us2025, borderWidth: 1.5 },
+      data: scatter2025.us,
+    },
+    {
+      name: '2025·中国',
+      type: 'scatter',
+      symbolSize: 13,
+      itemStyle: { color: COLORS.cn2025, borderColor: BORDER.cn2025, borderWidth: 1.5 },
+      data: scatter2025.cn,
+    },
+    // ── 2026 散点 ──
+    {
+      name: '2026·美国',
+      type: 'scatter',
+      symbolSize: 14,
+      itemStyle: { color: COLORS.us2026, borderColor: '#2557c7', borderWidth: 1 },
+      data: scatter2026.us,
+    },
+    {
+      name: '2026·中国',
+      type: 'scatter',
+      symbolSize: 14,
+      itemStyle: { color: COLORS.cn2026, borderColor: '#a52030', borderWidth: 1 },
+      data: scatter2026.cn,
+    },
+    {
+      name: '2026·欧洲/其他',
+      type: 'scatter',
+      symbolSize: 14,
+      itemStyle: { color: COLORS.eu2026, borderColor: '#1a7a36', borderWidth: 1 },
+      data: scatter2026.eu,
+    },
+    // ── 内圈饼：2025 ──
+    {
+      name: '2025 价格分布',
+      type: 'pie',
+      center: ['78%', '56%'],
+      radius: ['18%', '34%'],
+      label: {
+        position: 'inside',
+        formatter: p => p.value > 0 ? p.value : '',
+        fontSize: 11,
+        color: '#555',
+      },
+      labelLine: { show: false },
+      emphasis: { scale: false },
+      data: pie2025,
+    },
+    // ── 外圈饼：2026 ──
+    {
+      name: '2026 价格分布',
+      type: 'pie',
+      center: ['78%', '56%'],
+      radius: ['38%', '56%'],
+      label: {
+        formatter: p => p.value > 0 ? `${p.name}\n${p.value}款` : '',
+        fontSize: 10.5,
+        color: '#333',
+        lineHeight: 14,
+      },
+      labelLine: { length: 6, length2: 8 },
+      emphasis: {
+        label: { fontSize: 12, fontWeight: 'bold' },
+      },
+      data: pie2026,
+    },
+  ],
+};
+})());
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>散点：横轴 = Intelligence Index，纵轴 = 混合价；透明气泡 = 2025 年，实色气泡 = 2026 年；蓝色 = 美国，红色 = 中国，绿色 = 欧洲/其他。环形图：内圈 = 2025 价格分布（7 款），外圈 = 2026 价格分布（22 款）。数据来源：Artificial Analysis LLM Leaderboard, 2026-03-04，取 3:1 混合价。</p>
 </blockquote>
@@ -496,7 +1837,138 @@
 <p>这五个方向并不互斥，它们是同一个生态位框架下的不同演化分支。Token 经济型和推理蒸馏主要充实主力位，领域专精和端侧推理主要充实基座位，长上下文低成本则可能同时影响主力位和基座位。它们共同的指向是：LLM 的竞争正在从&quot;单一维度的能力比赛&quot;转向&quot;多维度的生态位填充&quot;。谁能在自己的生态位上做到极致，谁就能在这个市场里活得最好。</p>
 <h2 id="七、验证：三层分化已经发生了吗？">七、验证：三层分化已经发生了吗？</h2>
 <p>生态位理论的核心预测是：LLM 市场不会收敛到一个赢家，而是分化出若干个经济特征截然不同的层级，各层级在调用频次、单次价格和总花费上，走向不同的极点。如果分化确实在发生，我们应该能在市场数据里看到三组同向的证据。下图先给出整体结构，随后逐组说明。</p>
-<p><img src="/img/2026/llm-niche-theory-and-future-landscape/echarts-tier-comparison.png" srcset="/img/loading.gif" lazyload alt="三层生态位占比对比"></p>
+<div id="echarts-qe29v44zi" style="width:100%;height:420px;margin:1em 0;"></div>
+<script>
+(function () {
+  function init() {
+    var dom = document.getElementById('echarts-qe29v44zi');
+    if (!dom) return;
+    var chart = echarts.init(dom);
+    chart.setOption(({
+  backgroundColor: '#fff',
+  title: {
+    text: '三层生态位：模型数量 / 调用量 / 总花费',
+    subtext: '各维度在旗舰位 / 主力位 / 基座位的占比（%）',
+    left: 'center',
+    top: 16,
+    textStyle: { fontSize: 15, fontWeight: 'bold', color: '#1a1a2e' },
+    subtextStyle: { fontSize: 12, color: '#666' }
+  },
+  legend: {
+    bottom: 12,
+    itemWidth: 14,
+    itemHeight: 14,
+    textStyle: { fontSize: 13 },
+    data: ['模型数量', '调用量', '总花费']
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'shadow' },
+    formatter: (params) =>
+      params[0].name + '<br>' +
+      params.map(p => `${p.marker}${p.seriesName}：<b>${p.value}%</b>`).join('<br>')
+  },
+  grid: { left: 60, right: 40, top: 90, bottom: 60 },
+  xAxis: {
+    type: 'category',
+    data: ['Apex 旗舰位', 'Keystone 主力位', 'Decomposer 基座位'],
+    axisLabel: { fontSize: 13, fontWeight: 'bold' },
+    axisTick: { alignWithLabel: true }
+  },
+  yAxis: {
+    type: 'value',
+    name: '占比 (%)',
+    nameTextStyle: { fontSize: 12, color: '#888' },
+    max: 100,
+    splitLine: { lineStyle: { type: 'dashed', color: '#e8e8e8' } }
+  },
+  series: [
+    {
+      name: '模型数量',
+      type: 'bar',
+      barMaxWidth: 40,
+      data: [5, 15, 80],
+      // 炭蓝：数量呈金字塔，基座压倒性最多
+      itemStyle: { color: '#5094af', borderRadius: [3, 3, 0, 0] },
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}%',
+        fontSize: 12,
+        color: '#5094af',
+        fontWeight: 'bold'
+      }
+    },
+    {
+      name: '调用量',
+      type: 'bar',
+      barMaxWidth: 40,
+      data: [5, 35, 60],
+      // 碧绿：调用量也呈金字塔，与数量同向
+      itemStyle: { color: '#36c9b8', borderRadius: [3, 3, 0, 0] },
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}%',
+        fontSize: 12,
+        color: '#36c9b8',
+        fontWeight: 'bold'
+      }
+    },
+    {
+      name: '总花费',
+      type: 'bar',
+      barMaxWidth: 40,
+      data: [25, 55, 20],
+      // 托斯卡纳金：花费呈菱形，主力位独吞大头——最反直觉的一条
+      itemStyle: { color: '#dea821', borderRadius: [3, 3, 0, 0] },
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}%',
+        fontSize: 12,
+        color: '#dea821',
+        fontWeight: 'bold'
+      }
+    }
+  ],
+  // 用 markLine 在「总花费」系列上标注菱形的拐点，强化视觉对比
+  graphic: [
+    {
+      type: 'text',
+      left: 'center',
+      top: 60,
+      style: {
+        text: '↳ 花费（金色）呈菱形：主力层独吞55%，而非随数量/调用量同向的金字塔',
+        fontSize: 11,
+        fill: '#dea821',
+        fontStyle: 'italic'
+      }
+    }
+  ]
+}));
+    window.addEventListener('resize', function () { chart.resize(); });
+  }
+  if (typeof echarts !== 'undefined') {
+    init();
+  } else if (window.__echartsLoading) {
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+  } else {
+    window.__echartsLoading = true;
+    window.__echartsQueue = window.__echartsQueue || [];
+    window.__echartsQueue.push(init);
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js';
+    s.onload = function () {
+      window.__echartsLoading = false;
+      (window.__echartsQueue || []).forEach(function (fn) { fn(); });
+      window.__echartsQueue = [];
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <blockquote>
 <p>蓝色 = 模型数量（金字塔：基座 80%），橙色 = 调用量（金字塔：基座 60%），绿色 = 总花费（<strong>菱形：主力 55%</strong>）。前两条系列同向递增，绿色系列反向鼓出——主力层以不足 20% 的模型数量和 35% 的调用量，吃走了整体花费的 55%。这个「菱形」正是生态位分化已经发生的核心证据。</p>
 </blockquote>
