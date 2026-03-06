@@ -17,8 +17,13 @@ index:
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
 post:
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
-  math: true
-  mermaid: true
+  math:
+    enable: true
+  mermaid:
+    enable: true
+    specific: false
+    options:
+      theme: default
 tag:
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
   tagcloud:
@@ -47,9 +52,6 @@ math:
     css: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'
     options:
       throwOnError: false
-mermaid:
-  enable: true
-  specific: false
-  options:
-    theme: default
+static_prefix:
+  mermaid: https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/
 custom_css: /css/iconfont-leetcode.css
