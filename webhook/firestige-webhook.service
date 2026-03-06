@@ -1,0 +1,33 @@
+[Unit]
+Description=Firestige Blog Webhook Server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/firestige-webhook
+
+# ── Required ───────────────────────────────────────────────────────────────
+# GitHub Webhook Secret (set in GitHub repo → Settings → Webhooks)
+Environment=WEBHOOK_SECRET=your_secret_here
+
+# Isolated git working directory (NOT inside nginx web root)
+Environment=REPO_DIR=/opt/firestige-blog
+
+# Nginx serving directory (pure static files, .git never appears here)
+Environment=SITE_DIR=/var/www/html/firestige
+
+# ── Optional (defaults shown) ──────────────────────────────────────────────
+Environment=WEBHOOK_PORT=9000
+Environment=WEBHOOK_BRANCH=blog
+# ──────────────────────────────────────────────────────────────────────────
+
+ExecStart=/usr/bin/node /opt/firestige-webhook/server.js
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=firestige-webhook
+
+[Install]
+WantedBy=multi-user.target

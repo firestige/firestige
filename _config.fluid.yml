@@ -16,8 +16,9 @@ index:
       keys: ["hitokoto"]
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
 post:
-  katex: false
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
+  math: true
+  mermaid: true
 tag:
   banner_img: /img/wallhaven-l8yl6q_1920x1080.png
   tagcloud:
@@ -39,8 +40,16 @@ about:
     - { class: 'iconfont icon-mail', link: 'mailto:zzt.nbl@hotmail.com', tip: '邮箱' }
     - { class: 'iconfont icon-wechat-fill', qrcode: '/img/WeChat.jpg' }
 math:
+  enable: true
+  specific: false
+  engine: katex
   katex:
-    css: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css'
+    css: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css'
     options:
       throwOnError: false
+mermaid:
+  enable: true
+  specific: false
+  options:
+    theme: default
 custom_css: /css/iconfont-leetcode.css
