@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=apache
+User=nginx
 WorkingDirectory=/opt/firestige-webhook
 
 # ── Required ───────────────────────────────────────────────────────────────
