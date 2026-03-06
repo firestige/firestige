@@ -1,4 +1,4 @@
-option = {
+({
   title: {
     text: '三种使用模式的 Token 消耗量级',
     left: 'center',
@@ -70,4 +70,4 @@ option = {
       }
     }
   ]
-};
+})

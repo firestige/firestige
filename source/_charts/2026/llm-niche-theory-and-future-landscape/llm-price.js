@@ -1,4 +1,4 @@
-option = {
+({
   title: {
     text: 'Intelligence Index vs 价格：最后 20% 能力的指数定价',
     left: 'center',
@@ -97,4 +97,4 @@ option = {
       }
     }
   ]
-};
+})

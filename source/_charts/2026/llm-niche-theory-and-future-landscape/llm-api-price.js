@@ -1,4 +1,4 @@
-option = {
+({
   title: {
     text: '旗舰模型 API 混合价（$/百万 token，2026-03）',
     left: 'center',
@@ -39,4 +39,4 @@ option = {
       }
     }
   ]
-};
+})
