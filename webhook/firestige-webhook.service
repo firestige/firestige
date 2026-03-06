@@ -22,7 +22,7 @@ Environment=WEBHOOK_PORT=9000
 Environment=WEBHOOK_BRANCH=blog
 # ──────────────────────────────────────────────────────────────────────────
 
-ExecStart=/usr/bin/node /opt/firestige-webhook/server.js
+ExecStart=/usr/local/bin/node /opt/firestige-webhook/server.js
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
