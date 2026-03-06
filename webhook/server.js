@@ -59,7 +59,7 @@ async function deploy() {
   // 2. Sync static files to nginx web root (no .git leaking into web root)
   console.log(`[webhook] Syncing to ${SITE_DIR} ...`);
   await run('rsync', [
-    '-a', '--delete',
+    '-rl', '--delete',
     '--exclude=.git',
     REPO_DIR + '/',
     SITE_DIR + '/',
