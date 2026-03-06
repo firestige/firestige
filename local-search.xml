@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Webhook 自动部署验证</title>
+    <link href="/2025/webhook-deploy-test-d45bcafdcf9e/"/>
+    <url>/2025/webhook-deploy-test-d45bcafdcf9e/</url>
+    
+    <content type="html"><![CDATA[<p>这是一篇用于验证 GitHub Actions → Webhook → ECS 自动部署链路的测试文章。</p><p>如果你能在网站上看到这篇文章，说明整个自动化部署链路工作正常。</p><span id="more"></span><h2 id="部署链路">部署链路</h2><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">PR <span class="hljs-keyword">merge</span> → GitHub Actions 编译 → 推送 blog 分支 → Webhook 通知 ECS → git <span class="hljs-keyword">fetch</span> + rsync → Nginx 更新<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>运维</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>上桌吃菜与桌上吃菜</title>
     <link href="/2025/table-or-menu-d5c4f3799550/"/>
     <url>/2025/table-or-menu-d5c4f3799550/</url>
