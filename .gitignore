@@ -1,2 +1,13 @@
 /node_modules/
 /out/
+
+# Hexo generated output (single source of truth: source/)
+/public/
+/db.json
+
+# Hexo deploy artifacts
+/.deploy_git/
+/.deploy*/
+
+# Local caches
+/.cache/
