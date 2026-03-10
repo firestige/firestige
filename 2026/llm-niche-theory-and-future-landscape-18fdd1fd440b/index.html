@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-propagation-instability.png">
 <meta property="og:image" content="http://firestige.xyz/img/2026/llm-niche-theory-and-future-landscape/mhc-propagation-stability.png">
 <meta property="article:published_time" content="2026-03-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-07T07:31:45.742Z">
+<meta property="article:modified_time" content="2026-03-07T02:23:42.967Z">
 <meta property="article:author" content="firestige">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
@@ -271,11 +271,11 @@
 <hr>
 <h2 id="一、引子：一个拼命降价，一个疯狂烧钱">一、引子：一个拼命降价，一个疯狂烧钱</h2>
 <p>时隔一年，DeepSeek 又闷声送上新的&quot;新年大礼包&quot;。尽管 V4 还没正式露面，各路自媒体已经开始百花齐放百家争鸣的架势，但这次争论的焦点不是跑分，而是价格。从年初 mHC 论文悄悄挂上 arXiv，到 FlashMLA 开源，再到 V3.2-Exp 放出实测，所有信号都指向同一个方向：他们不只是在做下一代模型，而是在系统性地把&quot;单位能力成本&quot;往下砸。如果这件事成了，下探的就不只是某一个 API 的价格，而是整条推理经济的成本门槛。<sup>[1]</sup><sup>[3]</sup><sup>[4]</sup><sup>[6]</sup></p>
-<div id="echarts-t0bbzndfc" style="width:100%;height:320px;margin:1em 0;"></div>
+<div id="echarts-c8aw2iv73" style="width:100%;height:320px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-t0bbzndfc');
+    var dom = document.getElementById('echarts-c8aw2iv73');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(// ECharts option — DeepSeek Discussion Trend（GDELT，过去 12 个月）
@@ -574,11 +574,11 @@
 <p>图 1（DeepSeek 讨论度趋势）：基于 GDELT 全网新闻/媒体时间序列（过去 12 个月），可见讨论热度明显抬升。</p>
 </blockquote>
 <p>与此同时，另一股力量正在疯狂吞噬 token：OpenClaw 以及一众 Agent 框架让&quot;AI 当日常助手&quot;从尝鲜变成常态。写代码、排日程、做调研、整理会议纪要、批量处理文档都能做，代价是一次任务动辄烧掉几十万甚至上百万 token。它不是在聊天，而是在把 token 当算力使用，反复调用工具、装载上下文、自我纠错，再来一轮。你盯着账单看的时候会发现，消耗量不是线性增长，而是会随任务复杂度快速爬升。</p>
-<div id="echarts-k5s9aby9r" style="width:100%;height:320px;margin:1em 0;"></div>
+<div id="echarts-td0mm0bcn" style="width:100%;height:320px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-k5s9aby9r');
+    var dom = document.getElementById('echarts-td0mm0bcn');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(// ECharts option — OpenClaw/Agent Token-Cost Discussion Trend（GDELT）
@@ -879,11 +879,11 @@
 <p>一个拼了命降成本，一个疯了一样烧 token。巧合吗？还是说，这两股看似矛盾的趋势，其实正在合力把 LLM 行业推向一个全新的分岔口？这篇文章想聊的，就是这个分岔口背后的逻辑。</p>
 <h2 id="二、当下的现实：模型还在卷，账单先吃不消了">二、当下的现实：模型还在卷，账单先吃不消了</h2>
 <p>先看价格。截至 2026 年 3 月，旗舰模型的 API 定价仍然高悬：GPT-5.2 的混合价约 \$4.81/百万 token，Claude Opus 4.6 更夸张，达到 \$10.00/百万 token；而 DeepSeek V3.2，目前公认的&quot;够用级&quot;开源选手，只要 \$0.32/百万 token。换句话说，调一次 Opus 的钱，够你调 31 次 DeepSeek。<sup>[8]</sup><sup>[9]</sup><sup>[10]</sup></p>
-<div id="echarts-ao4fw4ten" style="width:100%;height:320px;margin:1em 0;"></div>
+<div id="echarts-mzr0diq0j" style="width:100%;height:320px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-ao4fw4ten');
+    var dom = document.getElementById('echarts-mzr0diq0j');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(({
@@ -954,11 +954,11 @@
 <p>数据来源：OpenAI API Pricing<sup>[8]</sup>、Claude Developer Platform<sup>[9]</sup>、DeepSeek API Docs<sup>[10]</sup>，取 3:1 输入输出混合价。</p>
 </blockquote>
 <p>价格差了几十倍，能力差了多少？没有几十倍。Artificial Analysis 排行榜的 Intelligence Index 给出了一个直观的刻度：Opus 4.6 得分 53，GPT-5.2 得分 51，DeepSeek V3.2 得分 42。最强模型比&quot;够用模型&quot;高出大约 20–26%。确实更贵的模型更聪明，但远没有价格暗示的那么大。<sup>[11]</sup></p>
-<div id="echarts-eabtxnd2k" style="width:100%;height:380px;margin:1em 0;"></div>
+<div id="echarts-fw7x8cv30" style="width:100%;height:380px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-eabtxnd2k');
+    var dom = document.getElementById('echarts-fw7x8cv30');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(({
@@ -1113,11 +1113,11 @@
 <p>每一次循环都在消耗 token，复杂任务可能循环数十次。</p>
 </blockquote>
 <p>为了让你直观感受 Agent 的&quot;胃口&quot;有多大，把三种典型使用模式的 token 消耗放在一起看：</p>
-<div id="echarts-nvk95if0w" style="width:100%;height:340px;margin:1em 0;"></div>
+<div id="echarts-sdj8tsdhs" style="width:100%;height:340px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-nvk95if0w');
+    var dom = document.getElementById('echarts-sdj8tsdhs');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(({
@@ -1301,11 +1301,11 @@
 <p>OpenClaw 的出现，让这个矛盾有了答案。Agent 工作流一旦铺开，高分模型的优势会被成本乘数整个吃掉。它打开的不是一场更激烈的军备竞赛，而是一个全然不同的赛道。在那个赛道上，贵是包袱，不是实力。</p>
 <p>我们需要一个更好的框架。生态学的<strong>生态位理论</strong>（Hutchinson, 1957）给了一个答案：物种不是在同一条跑道上比赛，而是在不同的成本-能力区间里竞争，谁能以最低的代价填满那个位置，谁就赢了那个层级。自然界里生物量最大的不是狮子，是蚂蚁和浮游生物；决定生态系统繁荣程度的也不是顶层物种有多强，而是每个层级能养活多少物种、服务多少需求。</p>
 <p>这个分层用一张图就能说清楚。生态学的营养级金字塔（Eltonian Pyramid）：越往上，个体能力越强但数量越稀少、成本越高；越往下，单体越弱小但总数量越庞大、成本越低。LLM 市场的成本和调用量分布，和这个结构完全对应：</p>
-<div id="echarts-j36eq657u" style="width:100%;height:500px;margin:1em 0;"></div>
+<div id="echarts-g3pgbynu2" style="width:100%;height:500px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-j36eq657u');
+    var dom = document.getElementById('echarts-g3pgbynu2');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(// ECharts option — 生态位金字塔对照图（等腰三角形）
@@ -1519,11 +1519,11 @@ return {
 <p>如果我们的生态位框架成立，那么接下来的问题就不再是&quot;哪个模型会赢&quot;，而是&quot;哪些方向的模型会把各自的生态位撑得更厚&quot;。答案不止一个，正如成熟的自然生态系统不会只进化出一种物种，LLM 市场也会同时催生多个高价值赛道。以下五个方向，是我们认为未来 2–3 年内最值得关注的演化分支。</p>
 <h3 id="6-1-「Token-经济型」模型——Agent-时代的刚需">6.1 「Token 经济型」模型——Agent 时代的刚需</h3>
 <p>第三节算过那笔账：Agent 把单次任务的 token 消耗推到 30–100 万量级，旗舰模型的价格曲线在那个乘法世界里直接变成悬崖。这个现实催生了一条明确的赛道：模型的核心竞争力从&quot;跑分最高&quot;变成了&quot;每美元能买到多少可用智力&quot;。Token 经济型模型不追求在所有 benchmark 上登顶，而是在&quot;够用&quot;的能力基线上，把单位 token 成本压到极致、把并发吞吐拉到最高、把输出稳定性做到可预测。DeepSeek V4 如果沿着第四节描述的路线兑现：稳训练（mHC）+ 高效推理（FlashMLA/DSA）+ 守住能力下限，它大概率会成为这个赛道的标杆。但这条赛道上远不止 DeepSeek 一个选手。下图把 2025 年初（约 7 款）和 2026 年 3 月（22 款）定价 ≤\$1.2/M 的模型全部放在同一个坐标系里：</p>
-<div id="echarts-jd52rfeq3" style="width:100%;height:560px;margin:1em 0;"></div>
+<div id="echarts-oul6us18l" style="width:100%;height:560px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-jd52rfeq3');
+    var dom = document.getElementById('echarts-oul6us18l');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(// 此文件作为 {% echarts %} 外部文件引用，顶层表达式须求值为 option 对象
@@ -1836,11 +1836,11 @@ return {
 <p>这五个方向并不互斥，它们是同一个生态位框架下的不同演化分支。Token 经济型和推理蒸馏主要充实主力位，领域专精和端侧推理主要充实基座位，长上下文低成本则可能同时影响主力位和基座位。它们共同的指向是：LLM 的竞争正在从&quot;单一维度的能力比赛&quot;转向&quot;多维度的生态位填充&quot;。谁能在自己的生态位上做到极致，谁就能在这个市场里活得最好。</p>
 <h2 id="七、验证：三层分化已经发生了吗？">七、验证：三层分化已经发生了吗？</h2>
 <p>生态位理论的核心预测是：LLM 市场不会收敛到一个赢家，而是分化出若干个经济特征截然不同的层级，各层级在调用频次、单次价格和总花费上，走向不同的极点。如果分化确实在发生，我们应该能在市场数据里看到三组同向的证据。下图先给出整体结构，随后逐组说明。</p>
-<div id="echarts-gc31pr8og" style="width:100%;height:420px;margin:1em 0;"></div>
+<div id="echarts-gqqzsqe1e" style="width:100%;height:420px;margin:1em 0;"></div>
 <script>
 (function () {
   function init() {
-    var dom = document.getElementById('echarts-gc31pr8og');
+    var dom = document.getElementById('echarts-gqqzsqe1e');
     if (!dom) return;
     var chart = echarts.init(dom);
     chart.setOption(({
@@ -2081,8 +2081,8 @@ return {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/table-or-menu-d5c4f3799550/" title="上桌吃菜与桌上吃菜">
-                        <span class="hidden-mobile">上桌吃菜与桌上吃菜</span>
+                      <a href="/2026/non-intrusive-observability-call-business-systems-04407472a0ee/" title="如何以非侵入的方式打通呼叫系统和业务系统的可观测性问题？基于SIP报文、ESL报文、Java Agent的联合关联方案">
+                        <span class="hidden-mobile">如何以非侵入的方式打通呼叫系统和业务系统的可观测性问题？基于SIP报文、ESL报文、Java Agent的联合关联方案</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

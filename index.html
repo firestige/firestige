@@ -253,6 +253,50 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/non-intrusive-observability-call-business-systems-04407472a0ee/" target="_self">
+          如何以非侵入的方式打通呼叫系统和业务系统的可观测性问题？基于SIP报文、ESL报文、Java Agent的联合关联方案
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/non-intrusive-observability-call-business-systems-04407472a0ee/" target="_self">
+        <div>
+          呼叫中心由SIP呼叫系统和HTTP/RPC业务系统两套异构体系组成，二者的可观测性链路天然割裂——APM看不见呼叫，SIP监控看不见业务。本文提出一种完全非侵入的联合关联方案：将SIP Transaction建模为Span，借助Via头还原信令路径，通过SkyWalking自定义插件在ESL事件处理的边界点捕获Call-ID，利用Redis缓存在运行时还原SIP侧Span的TraceID上下文，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-02-28 00:00" pubdate>
+              2026-02-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/">#可观测性</a>
+            
+              <a href="/tags/%E5%91%BC%E5%8F%AB%E7%B3%BB%E7%BB%9F/">#呼叫系统</a>
+            
+              <a href="/tags/SIP/">#SIP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/table-or-menu-d5c4f3799550/" target="_self">
           上桌吃菜与桌上吃菜
         </a>
@@ -582,50 +626,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/java-list-keypoints-9f3421da9ebf/" target="_self">
-          Java.util中的容器——List篇
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/java-list-keypoints-9f3421da9ebf/" target="_self">
-        <div>
-          1. 继承结构 可以看到   为什么ArrayList、Vector、LinkedList在继承了AbstractList之后还要再次申明实现了List接口呢？这是不是一种多余的行为？ 就目前的结果而言确实多余，但是在util里所有的容器中，他们都采用了类似的写法。而且就我所知Josh Bloch没有解释为什么，所以这个问题可能没有官方解释。 我的理解是：在类定义中再次实现接口而不是通过继承抽象类
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-06-10 16:41" pubdate>
-              2024-06-10
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Java/">#Java</a>
-            
-              <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">#源码分析</a>
-            
-              <a href="/tags/%E6%AF%8F%E5%91%A8%E4%B8%80%E7%AF%87/">#每周一篇</a>
             
           </div>
         
